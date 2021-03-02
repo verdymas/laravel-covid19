@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\HomeController as AdmHomeController;
 use App\Http\Controllers\Admin\KkController as AdmKkController;
 use App\Http\Controllers\Admin\WargaController as AdmWargaController;
 use App\Http\Controllers\Admin\SatgasController as AdmSatgasController;
+use App\Http\Controllers\Admin\BantuanController as AdmBantuanController;
 
 // satgas-controller
 use App\Http\Controllers\Satgas\LoginController as StgLoginController;
@@ -37,12 +38,17 @@ Route::group(['prefix' => 'admin'], function() {
 	Route::group(['middleware' => 'admin'], function() {
 		Route::get('home', [AdmHomeController::class, 'index'])->name('admin.home');
 
-		//kartu-keluarga
-		Route::resource('data/kartu-keluarga', AdmKkController::class);
-		//warga
-		Route::resource('data/warga', AdmWargaController::class);
-		//satgas
-        Route::resource('data/satgas', AdmSatgasController::class);
+        Route::prefix('data')->group(function () {
+            //kartu-keluarga
+            Route::resource('kartu-keluarga', AdmKkController::class);
+            //warga
+            Route::resource('warga', AdmWargaController::class);
+            //satgas
+            Route::resource('satgas', AdmSatgasController::class);
+        });
+
+        //bantuan
+        Route::resource('bantuan', AdmBantuanController::class);
 
 		Route::get('logout', [AdmLoginController::class, 'logout'])->name('admin.logout');
 	});

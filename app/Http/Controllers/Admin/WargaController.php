@@ -120,8 +120,8 @@ class WargaController extends Controller
         $d->stat_wrg = $request->stat_wrg;
         if ($d->save()) {
             $act == 'store'
-                ? ['success' => 'Data berhasil disimpan']
-                : ['success' => 'Data berhasil diubah'];
+                ? $msg = ['success' => 'Data berhasil disimpan']
+                : $msg = ['success' => 'Data berhasil diubah'];
         } else {
             $msg = ['failed' => 'Server Error'];
         }
