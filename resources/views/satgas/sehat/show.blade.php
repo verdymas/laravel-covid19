@@ -1,4 +1,4 @@
-@extends('admin.base')
+@extends('satgas.base')
 @section('title', 'Warga')
 @section('content')
     @if($msg = session()->get('success'))
@@ -17,7 +17,7 @@
             <div class="d-flex align-items-center justify-content-between">
                 <h3 class="card-title">ID. Warga: <span class="badge badge-success">{{ $data->id_wrg  }}</span></h3>
                 <div class="card-tools">
-                    <a href="{{ route('warga.edit', $data->id_wrg) }}" class="btn btn-primary btn-sm" title="Edit">
+                    <a href="{{ route('kesehatan.edit', $data->id_wrg) }}" class="btn btn-primary btn-sm" title="Edit">
                         <i class="fa fa-edit"></i></a>
                     <button onclick="history.back();" class="btn btn-primary btn-sm" title="Kembali">
                         <i class="fa fa-arrow-left"></i></button>
@@ -29,9 +29,7 @@
                 <tbody>
                     <tr>
                         <th scope="col">No. Kartu Keluarga</th>
-                        <td>
-                            <a href="{{ route('kartu-keluarga.show', $data->kk->id_kk) }}">{{ $data->kk->no_kk }}</a>
-                        </td>
+                        <td>{{ $data->kk->no_kk }}</td>
                     </tr>
                     <tr>
                         <th scope="col">Nama</th>
@@ -50,12 +48,12 @@
                         <td>{{ $data->almt_wrg }}</td>
                     </tr>
                     <tr>
-                        <th scope="col">Kesehatan</th>
-                        <td>{{ $data->statskt_wrg != 1 ? 'Sehat' : 'Sakit' }}</td>
+                        <th scope="col">Keterangan Sakit</th>
+                        <td>{{ $data->skt_wrg }}</td>
                     </tr>
                     <tr>
-                        <th scope="col">Status</th>
-                        <td>{{ $data->stat_wrg == 1 ? 'Active' : 'Inactive' }}</td>
+                        <th scope="col">Kesehatan</th>
+                        <td>{{ $data->statskt_wrg != 1 ? 'Sehat' : 'Sakit' }}</td>
                     </tr>
                 </tbody>
             </table>

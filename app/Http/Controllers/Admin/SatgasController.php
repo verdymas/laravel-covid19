@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\akun_satgas;
+use App\Models\akun_admin;
 
 class SatgasController extends Controller
 {
@@ -16,7 +16,7 @@ class SatgasController extends Controller
      */
     public function index()
     {
-        $data = akun_satgas::paginate(5);
+        $data = akun_admin::where('roles', '1')->paginate(5);
 
         return view('admin.satgas.index', compact('data'));
     }
@@ -39,10 +39,10 @@ class SatgasController extends Controller
      */
     public function store(Request $request)
     {
-        $d = new akun_satgas;
+        $d = new akun_admin;
         $msg = $this->save($d, $request, 'store');
 
-        return redirect()->route('satgas.show', $d->id_stg)->with($msg);
+        return redirect()->route('satgas.show', $d->id_adm)->with($msg);
     }
 
     /**
@@ -53,7 +53,7 @@ class SatgasController extends Controller
      */
     public function show($id)
     {
-        $data = akun_satgas::findOrFail($id);
+        $data = akun_admin::findOrFail($id);
 
         return view('admin.satgas.show', compact('data'));
     }
@@ -66,7 +66,7 @@ class SatgasController extends Controller
      */
     public function edit($id)
     {
-        $data = akun_satgas::findOrFail($id);
+        $data = akun_admin::findOrFail($id);
 
         return view('admin.satgas.edit', compact('data'));
     }
@@ -80,10 +80,10 @@ class SatgasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $d = akun_satgas::findOrFail($id);
+        $d = akun_admin::findOrFail($id);
         $msg = $this->save($d, $request, 'update');
 
-        return redirect()->route('satgas.show', $d->id_stg)->with($msg);
+        return redirect()->route('satgas.show', $d->id_adm)->with($msg);
     }
 
     /**
@@ -97,15 +97,15 @@ class SatgasController extends Controller
         //
     }
 
-    private function save(akun_satgas $d, Request $request, $act)
+    private function save(akun_admin $d, Request $request, $act)
     {
         $d->username = $request->username;
         if ($act == 'store' || $request->ubah_pass == 'on') {
             $d->password = \Hash::make($request->password);
         }
-        $d->nm_stg = $request->nm_stg;
-        $d->img_stg = '';
-        $d->stat_stg = $request->stat_stg;
+        $d->nm_adm = $request->nm_adm;
+        $d->img_adm = '';
+        $d->stat_adm = $request->stat_adm;
         if ($d->save()) {
             $act == 'store'
                 ? $msg = ['success' => 'Data berhasil disimpan']

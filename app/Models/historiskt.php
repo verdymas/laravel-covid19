@@ -6,18 +6,20 @@ use DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class bantuan extends Model
+class historiskt extends Model
 {
     use HasFactory;
 
-    protected $table = 'bantuan';
-    protected $primaryKey = 'id_ban';
+    protected $table = 'historiskt';
+    protected $primaryKey = 'id_his';
+
+    protected $fillable = ['id_wrg', 'tgl_skt', 'tgl_sls', 'tgl_smb', 'st_skt', 'stat_skt'];
 
     public $timestamps = false;
 
-    public function kk()
+    public function warga()
     {
-        return $this->belongsTo(kk::class, 'id_kk', 'id_kk');
+        return $this->belongsTo(warga::class, 'id_wrg', 'id_wrg');
     }
 
     public function insert($array)

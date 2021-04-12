@@ -19,6 +19,7 @@ class SatgasAuthenticate
         if (!auth()->guard('satgas')->check()) {
             return redirect(route('satgas.login'));
         }
+        
         return $next($request);
     }
 }

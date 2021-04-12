@@ -6,13 +6,13 @@
             <h3 class="card-title"><span class="badge badge-success">
                     <i class="fa fa-Edit"></i> Ubah</span> Satuan Petugas</h3>
         </div>
-        <form method="post" action="{{ route('satgas.update', $data->id_stg) }}">
+        <form method="post" action="{{ route('satgas.update', $data->id_adm) }}">
             @csrf
             @method('patch')
             <div class="card-body">
                 <div class="form-group">
-                    <label for="nm_stg">Nama</label>
-                    <input type="text" name="nm_stg" class="form-control" value="{{ $data->nm_stg }}" required>
+                    <label for="nm_adm">Nama</label>
+                    <input type="text" name="nm_adm" class="form-control" value="{{ $data->nm_adm }}" required>
                 </div>
                 <div class="row form-group">
                     <div class="col-6">
@@ -30,9 +30,9 @@
                 </div>
                 <div class="form-group">
                     <label>Status</label>
-                    <select name="stat_stg" class="form-control" required>
+                    <select name="stat_adm" class="form-control" required>
                         <option value="">-- pilih satu --</option>
-                        @if($data->stat_stg == 1)
+                        @if($data->stat_adm == 1)
                             <option value="1" selected>Active</option>
                             <option value="0">Inactive</option>
                         @else

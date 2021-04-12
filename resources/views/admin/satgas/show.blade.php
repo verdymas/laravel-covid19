@@ -16,9 +16,9 @@
         <div class="card-header">
             <div class="d-flex align-items-center justify-content-between">
                 <h3 class="card-title">ID. Satuan Petugas:
-                    <span class="badge badge-success">{{ $data->id_stg  }}</span></h3>
+                    <span class="badge badge-success">{{ $data->id_adm  }}</span></h3>
                 <div class="card-tools">
-                    <a href="{{ route('satgas.edit', $data->id_stg) }}" class="btn btn-primary btn-sm" title="Edit">
+                    <a href="{{ route('satgas.edit', $data->id_adm) }}" class="btn btn-primary btn-sm" title="Edit">
                         <i class="fa fa-edit"></i></a>
                     <button onclick="history.back();" class="btn btn-primary btn-sm" title="Kembali">
                         <i class="fa fa-arrow-left"></i></button>
@@ -30,7 +30,7 @@
                 <tbody>
                     <tr>
                         <th scope="col">Nama</th>
-                        <td>{{ $data->nm_stg }}</td>
+                        <td>{{ $data->nm_adm }}</td>
                     </tr>
                     <tr>
                         <th scope="col">Username</th>
@@ -38,7 +38,7 @@
                     </tr>
                     <tr>
                         <th scope="col">Status</th>
-                        <td>{{ $data->stat_stg == 1 ? 'Active' : 'Inactive' }}</td>
+                        <td>{{ $data->stat_adm == 1 ? 'Active' : 'Inactive' }}</td>
                     </tr>
                 </tbody>
             </table>

@@ -1,18 +1,20 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
-// admin-controller
-use App\Http\Controllers\Admin\LoginController as AdmLoginController;
-use App\Http\Controllers\Admin\HomeController as AdmHomeController;
-use App\Http\Controllers\Admin\KkController as AdmKkController;
-use App\Http\Controllers\Admin\WargaController as AdmWargaController;
-use App\Http\Controllers\Admin\SatgasController as AdmSatgasController;
 use App\Http\Controllers\Admin\BantuanController as AdmBantuanController;
 
-// satgas-controller
-use App\Http\Controllers\Satgas\LoginController as StgLoginController;
+// admin-controller
+use App\Http\Controllers\Admin\HistoriController as AdmHistoriController;
+use App\Http\Controllers\Admin\HomeController as AdmHomeController;
+use App\Http\Controllers\Admin\KkController as AdmKkController;
+use App\Http\Controllers\Admin\LoginController as AdmLoginController;
+use App\Http\Controllers\Admin\SatgasController as AdmSatgasController;
+use App\Http\Controllers\Admin\WargaController as AdmWargaController;
 use App\Http\Controllers\Satgas\HomeController as StgHomeController;
+
+// satgas-controller
+use App\Http\Controllers\Satgas\KesehatanController as StgSehatController;
+use App\Http\Controllers\Satgas\LoginController as StgLoginController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,20 +25,19 @@ use App\Http\Controllers\Satgas\HomeController as StgHomeController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', function () {
-	return redirect()->route('admin.login');
+    return redirect()->route('admin.login');
 });
 
-
 // admin-route
-Route::group(['prefix' => 'admin'], function() {
-	Route::get('login', [AdmLoginController::class, 'showLoginForm'])->name('admin.login');
-	Route::post('login', [AdmLoginController::class, 'login'])->name('admin.post_login');
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('login', [AdmLoginController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('login', [AdmLoginController::class, 'login'])->name('admin.post_login');
 
-	Route::group(['middleware' => 'admin'], function() {
-		Route::get('home', [AdmHomeController::class, 'index'])->name('admin.home');
+    Route::group(['middleware' => 'admin'], function () {
+        Route::get('home', [AdmHomeController::class, 'index'])->name('admin.home');
 
         Route::prefix('data')->group(function () {
             //kartu-keluarga
@@ -50,18 +51,23 @@ Route::group(['prefix' => 'admin'], function() {
         //bantuan
         Route::resource('bantuan', AdmBantuanController::class);
 
-		Route::get('logout', [AdmLoginController::class, 'logout'])->name('admin.logout');
-	});
+        //histori
+        Route::resource('histori', AdmHistoriController::class);
+
+        Route::get('logout', [AdmLoginController::class, 'logout'])->name('admin.logout');
+    });
 });
 
 // satgas-route
-Route::group(['prefix' => 'satgas'], function() {
-	Route::get('login', [StgLoginController::class, 'showLoginForm'])->name('satgas.login');
-	Route::post('login', [StgLoginController::class, 'login'])->name('satgas.post_login');
+Route::group(['prefix' => 'satgas'], function () {
+    Route::get('login', [StgLoginController::class, 'showLoginForm'])->name('satgas.login');
+    Route::post('login', [StgLoginController::class, 'login'])->name('satgas.post_login');
 
-	Route::group(['middleware' => 'satgas'], function() {
-		Route::get('home', [StgHomeController::class, 'index'])->name('satgas.home');
+    Route::group(['middleware' => 'satgas'], function () {
+        Route::get('home', [StgHomeController::class, 'index'])->name('satgas.home');
 
-		Route::get('logout', [StgLoginController::class, 'logout'])->name('satgas.logout');
-	});
+        Route::resource('kesehatan', StgSehatController::class);
+
+        Route::get('logout', [StgLoginController::class, 'logout'])->name('satgas.logout');
+    });
 });

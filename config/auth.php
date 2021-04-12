@@ -88,7 +88,7 @@ return [
 
         'akun_satgas' => [
             'driver' => 'eloquent',
-            'model' => App\Models\akun_satgas::class,
+            'model' => App\Models\akun_admin::class,
         ],
 
         // 'users' => [

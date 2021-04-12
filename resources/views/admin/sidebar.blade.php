@@ -84,6 +84,15 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('histori.index') }}"
+                       class="nav-link {{ request()->routeIs('histori*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-book-medical"></i>
+                        <p>
+                            Histori
+                        </p>
+                    </a>
+                </li>
                 <div class="divider"></div>
                 <li class="nav-item">
                     <a href="{{-- route('account.index') --}}"

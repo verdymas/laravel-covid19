@@ -41,16 +41,16 @@
                         @foreach($data as $k => $v)
                             <tr>
                                 <th scope="row">{{ $i++ }}</th>
-                                <td>{{ $v->nm_stg }}</td>
+                                <td>{{ $v->nm_adm }}</td>
                                 <td>{{ $v->username }}</td>
                                 <td>
-                                    <span class="badge badge-{{ $v->stat_stg == 1 ? 'success' : 'danger' }}">
-                                        {{ $v->stat_stg == 1 ? 'Active' : 'Inactive' }}</span>
+                                    <span class="badge badge-{{ $v->stat_adm == 1 ? 'success' : 'danger' }}">
+                                        {{ $v->stat_adm == 1 ? 'Active' : 'Inactive' }}</span>
                                 </td>
                                 <td>
-                                    <a href="{{ route('satgas.edit', $v->id_stg) }}" class="btn btn-primary btn-sm"
+                                    <a href="{{ route('satgas.edit', $v->id_adm) }}" class="btn btn-primary btn-sm"
                                        title="Ubah"><i class="fa fa-edit"></i></a>
-                                    <a href="{{ route('satgas.show', $v->id_stg) }}" class="btn btn-info btn-sm"
+                                    <a href="{{ route('satgas.show', $v->id_adm) }}" class="btn btn-info btn-sm"
                                        title="Detail"><i class="fa fa-info"></i></a>
                                 </td>
                             </tr>
