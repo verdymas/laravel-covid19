@@ -16,18 +16,33 @@
                     <label for="no_kk">No. Kartu Keluarga</label>
                     <input type="text" name="no_kk" id="no_kk" class="form-control" value="{{ $data->no_kk }}" required>
                 </div>
-                <div class="form-group">
-                    <label for="stat_kk">Status</label>
-                    <select name="stat_kk" id="stat_kk" class="form-control" required>
-                        <option value="">-- pilih satu --</option>
-                        @if($data->stat_kk == 1)
-                            <option value="1" selected>Active</option>
-                            <option value="0">Inactive</option>
-                        @else
-                            <option value="1">Active</option>
-                            <option value="0" selected>Inactive</option>
-                        @endif
-                    </select>
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label for="stat_kk">Status</label>
+                            <select name="stat_kk" id="stat_kk" class="form-control" required>
+                                <option value="">-- pilih satu --</option>
+                                @if($data->stat_kk == 1)
+                                    <option value="1" selected>Active</option>
+                                    <option value="0">Inactive</option>
+                                @else
+                                    <option value="1">Active</option>
+                                    <option value="0" selected>Inactive</option>
+                                @endif
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Satgas</label>
+                            <select name="id_adm" id="id_adm" class="form-control" required>
+                                <option value="">-- pilih satu</option>
+                                @foreach ($stg as $i)
+                                    <option value="{{ $i->id_adm }}" {{ $data->akun_admin->id_adm == $i->id_adm ? 'selected' : '' }}>{{ $i->username }} | {{ $i->nm_adm }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card-footer">

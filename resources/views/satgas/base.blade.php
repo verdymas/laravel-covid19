@@ -99,6 +99,8 @@
   <script>
     $.widget.bridge('uibutton', $.ui.button)
   </script>
+  <!-- alpine js -->
+  <script src="{{ asset('alpinejs/alpine.min.js') }}"></script>
   <!-- Bootstrap 4 -->
   <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <!-- ChartJS -->

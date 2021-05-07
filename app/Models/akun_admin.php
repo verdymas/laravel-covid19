@@ -17,4 +17,9 @@ class akun_admin extends Authenticatable
 	protected $primaryKey = 'id_adm';
 	
 	public $timestamps = false;
+
+	public function kk()
+	{
+		return $this->hasMany(kk::class, 'id_adm', 'id_adm');
+	}
 }

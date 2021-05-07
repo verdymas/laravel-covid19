@@ -29,6 +29,7 @@
                         <th scope="col" style="width: 5%" class="text-center">#</th>
                         <th scope="col">No. Kartu Keluarga</th>
                         <th scope="col" style="width: 10%" class="text-center">Jumlah</th>
+                        <th scope="col" style="width: 10%" class="text-center">Admin</th>
                         <th scope="col" style="width: 10%" class="text-center">Status</th>
                         <th scope="col" style="width: 15%" class="text-center"><i class="fa fa-exclamation-circle"></i>
                         </th>
@@ -42,6 +43,9 @@
                                 <th scope="row">{{ $i++ }}</th>
                                 <td>{{ $v->no_kk}}</td>
                                 <td>{{ $v->warga_count  }}</td>
+                                <td>
+                                    <span class="badge badge-info">{{ $v->akun_admin->username }} | {{ $v->akun_admin->nm_adm }}</span>
+                                </td>
                                 <td>
                                 <span
                                     class="badge badge-{{ $v->stat_kk == 1 ? 'success' : 'danger' }}">

@@ -19,6 +19,7 @@
                     No. {{ $data->no_kk }}&emsp;<span
                         class="badge badge-{{ $data->stat_kk == 1 ? 'success' : 'danger' }}">
                     {{ $data->stat_kk == 1 ? 'Active' : 'Inactive' }}</span>
+                    <span class="badge badge-info">{{ $data->akun_admin->username }} | {{ $data->akun_admin->nm_adm }}</span>
                 </h3>
                 <div class="card-tools">
                     <a href="{{ route('warga.create', 'id_kk=' . $data->id_kk) }}" class="btn btn-primary btn-sm"

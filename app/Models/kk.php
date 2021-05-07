@@ -29,4 +29,9 @@ class kk extends Model
 		return $this->hasMany(bantuan::class, 'id_kk', 'id_kk');
 	}
 
+	public function akun_admin()
+	{
+		return $this->belongsTo(akun_admin::class, 'id_adm', 'id_adm');
+	}
+
 }

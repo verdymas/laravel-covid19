@@ -106,6 +106,7 @@ class SatgasController extends Controller
         $d->nm_adm = $request->nm_adm;
         $d->img_adm = '';
         $d->stat_adm = $request->stat_adm;
+        $d->roles = 1;
         if ($d->save()) {
             $act == 'store'
                 ? $msg = ['success' => 'Data berhasil disimpan']

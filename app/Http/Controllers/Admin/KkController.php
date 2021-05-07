@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\kk;
+use App\Models\akun_admin;
 
 class KkController extends Controller
 {
@@ -16,7 +17,9 @@ class KkController extends Controller
      */
     public function index()
     {
-        $data = kk::withCount('warga')->paginate(5);
+        $data = kk::withCount('warga')
+        ->with('akun_admin:id_adm,username,nm_adm')
+        ->paginate(5);
 
         return view('admin.kk.index')->with(['data' => $data]);
     }
@@ -28,7 +31,9 @@ class KkController extends Controller
      */
     public function create()
     {
-        return view('admin.kk.create');
+        $stg = akun_admin::where('roles', 1)->get();
+
+        return view('admin.kk.create')->with(['stg' => $stg]);
     }
 
     /**
@@ -53,7 +58,9 @@ class KkController extends Controller
      */
     public function show($id)
     {
-        $data = kk::with('warga')->findOrFail($id);
+        $data = kk::with('warga')
+        ->with('akun_admin:id_adm,username,nm_adm')
+        ->findOrFail($id);
 
         return view('admin.kk.show')->with(['data' => $data]);
     }
@@ -66,9 +73,10 @@ class KkController extends Controller
      */
     public function edit($id)
     {
-        $data = kk::findOrFail($id);
+        $data = kk::with('akun_admin:id_adm,username,nm_adm')->findOrFail($id);
+        $stg = akun_admin::where('roles', 1)->get();
 
-        return view('admin.kk.edit')->with(['data' => $data]);
+        return view('admin.kk.edit')->with(['data' => $data, 'stg' => $stg]);
     }
 
     /**
@@ -101,6 +109,7 @@ class KkController extends Controller
     {
         $d->no_kk = $request->no_kk;
         $d->stat_kk = $request->stat_kk;
+        $d->id_adm = $request->id_adm;
         if ($d->save()) {
             $act == 'store'
                 ? $msg = ['success' => 'Data berhasil disimpan']

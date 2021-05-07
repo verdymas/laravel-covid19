@@ -13,13 +13,28 @@
                     <label>No. Kartu Keluarga</label>
                     <input type="text" name="no_kk" id="no_kk" class="form-control" required>
                 </div>
-                <div class="form-group">
-                    <label>Status</label>
-                    <select name="stat_kk" class="form-control" required>
-                        <option value="">-- pilih satu --</option>
-                        <option value="1">Active</option>
-                        <option value="0">Inactive</option>
-                    </select>
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select name="stat_kk" class="form-control" required>
+                                <option value="">-- pilih satu --</option>
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Satgas</label>
+                            <select name="id_adm" id="id_adm" class="form-control" required>
+                                <option value="">-- pilih satu</option>
+                                @foreach ($stg as $i)
+                                    <option value="{{ $i->id_adm }}">{{ $i->username }} | {{ $i->nm_adm }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card-footer">
@@ -33,10 +48,11 @@
 @endsection
 @section('extrajs')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $("#no_kk").inputFilter(function(value) {
                 return /^\d*$/.test(value);
             });
         });
+
     </script>
 @endsection

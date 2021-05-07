@@ -112,11 +112,6 @@ class WargaController extends Controller
         $d->jk_wrg = $request->jk_wrg;
         $d->almt_wrg = $request->almt_wrg;
 
-        if ($act == 'store') {
-            $d->skt_wrg = '';
-            $d->statskt_wrg = 0;
-        }
-
         $d->stat_wrg = $request->stat_wrg;
         if ($d->save()) {
             $act == 'store'

@@ -11,7 +11,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="nm_stg">Nama</label>
-                    <input type="text" name="nm_stg" class="form-control" required>
+                    <input type="text" name="nm_adm" class="form-control" required>
                 </div>
                 <div class="row form-group">
                     <div class="col-6">
@@ -25,7 +25,7 @@
                 </div>
                 <div class="form-group">
                     <label>Status</label>
-                    <select name="stat_stg" class="form-control" required>
+                    <select name="stat_adm" class="form-control" required>
                         <option value="">-- pilih satu --</option>
                         <option value="1">Active</option>
                         <option value="0">Inactive</option>

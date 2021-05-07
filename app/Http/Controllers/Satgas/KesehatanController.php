@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Satgas;
 
 use App\Http\Controllers\Controller;
 use App\Models\bantuan;
+use App\Models\helper;
 use App\Models\historiskt;
 use App\Models\warga;
 use DB;
@@ -14,6 +15,8 @@ class KesehatanController extends Controller
 
     public function __construct()
     {
+        $this->middleware('sehat', ['except' => ['index']]);
+
         $this->warga = new warga;
         $this->historiskt = new historiskt;
         $this->bantuan = new bantuan;
@@ -30,7 +33,9 @@ class KesehatanController extends Controller
             'w.id_wrg', 'w.nm_wrg', 'hp.val_help AS jk', 'he.val_help AS st_skt', DB::raw("TIMESTAMPDIFF(YEAR, tgllhr_wrg, CURDATE()) AS umur_wrg"),
         ];
 
-        $data = $this->warga->fetch_data(true, 1, $select)->paginate(5);
+        $where['id_adm'] = auth()->guard('satgas')->user()->id_adm;
+
+        $data = $this->warga->fetch_data(true, 1, $select, $where)->paginate(5);
 
         return view('satgas.sehat.index', compact('data'));
     }
@@ -87,7 +92,34 @@ class KesehatanController extends Controller
             $dt['his'] = historiskt::find($dt['data']->id_his);
         }
 
-        // return response()->json($his);
+        $kkSktSql = DB::table('kk')
+        ->join('warga AS w', function($j) use ($dt) {
+            $j->on('w.id_kk', 'kk.id_kk')
+            ->where('kk.id_kk', $dt['data']->id_kk);
+        })
+        ->join('historiskt AS h', function($j) {
+            $j->on('h.id_wrg', 'w.id_wrg')
+            ->where(['st_skt' => 1, 'stat_skt' => 1]);
+        })
+        ->join('bantuan AS b', 'b.id_kk', 'kk.id_kk')
+        ->orderBy('h.tgl_skt', 'DESC');
+
+        $dt['kk_skt'] = clone $kkSktSql;
+
+        if (!$kkSktSql->count() == 0) {
+            $dt['kk_skt'] = $dt['kk_skt']->first();
+
+            $date1 = date_create(date('Y-m-d'));
+            $date2 = date_create($dt['kk_skt']->tgl_skt);
+
+            $dt['kk_skt']->interval = intval(date_diff($date2,$date1)->format("%R%a"));
+        } else {
+            $dt['kk_skt'] = false;
+        }
+
+        // return response()->json($dt['kk_skt']->interval);
+
+        $dt['st_skt'] = helper::where('param_help', 'ST_SKT')->whereNotIn('code_help', [1])->get();
 
         return view('satgas.sehat.edit', $dt);
     }
@@ -119,8 +151,10 @@ class KesehatanController extends Controller
                 $h = $this->historiskt->insert($h_data);
 
                 $b_data = [
-                    'jml_ban' => $request->bantuan,
                     'tgl_ban' => date('Y-m-d'),
+                    'jml_ban' => $request->jml,
+                    'hri_ban' => $request->hri,
+                    'tot_ban' => $request->jml * $request->hri,
                     'id_kk' => $w->kk->id_kk,
                     'id_his' => $h,
                 ];

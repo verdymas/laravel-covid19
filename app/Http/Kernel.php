@@ -64,5 +64,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\AdminAuthenticate::class,
         'satgas' => \App\Http\Middleware\SatgasAuthenticate::class,
+        'sehat' => \App\Http\Middleware\SehatDataManagement::class,
     ];
 }
