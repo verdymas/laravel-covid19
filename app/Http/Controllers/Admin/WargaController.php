@@ -17,9 +17,10 @@ class WargaController extends Controller
      */
     public function index()
     {
-        $data = warga::paginate(5);
+        $data = warga::all();
+        $kk = kk::all();
 
-        return view('admin.warga.index')->with(['data' => $data]);
+        return view('admin.warga.index')->with(['data' => $data, 'kk' => $kk]);
     }
 
     /**
@@ -45,7 +46,7 @@ class WargaController extends Controller
         $d = new warga;
         $msg = $this->save($d, $request, 'store');
 
-        return redirect()->route('warga.show', $d->id_wrg)->with($msg);
+        return redirect()->route('warga.show', $request->nik_wrg)->with($msg);
     }
 
     /**
@@ -87,7 +88,7 @@ class WargaController extends Controller
         $d = warga::findOrFail($id);
         $msg = $this->save($d, $request, 'update');
 
-        return redirect()->route('warga.show', $d->id_wrg)->with($msg);
+        return redirect()->route('warga.show', $d->nik_wrg)->with($msg);
     }
 
     /**
@@ -106,13 +107,14 @@ class WargaController extends Controller
         $kk = kk::findOrFail($request->id_kk);
 
         $d->id_kk = $kk->id_kk;
+        $d->nik_wrg = $request->nik_wrg;
         $d->nm_wrg = $request->nm_wrg;
         $d->tmplhr_wrg = $request->tmplhr_wrg;
         $d->tgllhr_wrg = $request->tgllhr_wrg;
         $d->jk_wrg = $request->jk_wrg;
         $d->almt_wrg = $request->almt_wrg;
 
-        $d->stat_wrg = $request->stat_wrg;
+        $d->stat_wrg = 1;
         if ($d->save()) {
             $act == 'store'
                 ? $msg = ['success' => 'Data berhasil disimpan']

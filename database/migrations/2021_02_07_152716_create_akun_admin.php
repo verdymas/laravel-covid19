@@ -18,8 +18,11 @@ class CreateAkunAdmin extends Migration
             $table->string('username', 25)->unique();
             $table->string('password');
             $table->string('nm_adm');
-            $table->string('img_adm');
-            $table->smallInteger('stat_adm');
+
+            $table->tinyInteger('roles');
+
+            $table->string('img_adm')->nullable();
+            $table->smallInteger('stat_adm')->default(1);
             $table->rememberToken();
         });
     }

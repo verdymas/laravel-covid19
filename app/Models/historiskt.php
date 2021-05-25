@@ -13,13 +13,13 @@ class historiskt extends Model
     protected $table = 'historiskt';
     protected $primaryKey = 'id_his';
 
-    protected $fillable = ['id_wrg', 'tgl_skt', 'tgl_sls', 'tgl_smb', 'st_skt', 'stat_skt'];
+    protected $fillable = ['nik_wrg', 'tgl_skt', 'tgl_sls', 'tgl_smb', 'st_skt', 'stat_skt'];
 
     public $timestamps = false;
 
     public function warga()
     {
-        return $this->belongsTo(warga::class, 'id_wrg', 'id_wrg');
+        return $this->belongsTo(warga::class, 'nik_wrg', 'id_wrg');
     }
 
     public function insert($array)

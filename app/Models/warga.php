@@ -12,7 +12,7 @@ class warga extends Model
     use HasFactory;
 
     protected $table = 'warga';
-    protected $primaryKey = 'id_wrg';
+    protected $primaryKey = 'nik_wrg';
 
     protected $fillable = [
         'nm_wrg',
@@ -59,7 +59,7 @@ class warga extends Model
                 $j->on('hp.code_help', 'w.jk_wrg')
                     ->where('hp.param_help', 'JK');
             })
-            ->leftJoin('historiskt AS h', 'w.id_wrg', 'h.id_wrg')
+            ->leftJoin('historiskt AS h', 'w.nik_wrg', 'h.nik_wrg')
             ->leftJoin('helper AS he', function ($j) {
                 $j->on('he.code_help', DB::raw("COALESCE(h.stat_skt, 0)"))
                     ->where('he.param_help', 'ST_SKT');

@@ -14,15 +14,15 @@ class CreateWarga extends Migration
     public function up()
     {
         Schema::create('warga', function (Blueprint $table) {
-            $table->bigIncrements('id_wrg');
+            $table->char('nik_wrg', 16);
+            $table->primary('nik_wrg');
+
             $table->text('nm_wrg');
             $table->string('tmplhr_wrg');
             $table->date('tgllhr_wrg');
-            $table->smallInteger('jk_wrg');
+            $table->tinyInteger('jk_wrg');
             $table->text('almt_wrg');
-            $table->text('skt_wrg');
-            $table->smallInteger('statskt_wrg');
-            $table->smallInteger('stat_wrg');
+            $table->tinyInteger('stat_wrg');
 
             $table->bigInteger('id_kk')->unsigned();
             $table->foreign('id_kk')->references('id_kk')->on('kk');

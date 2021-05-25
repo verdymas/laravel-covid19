@@ -25,7 +25,8 @@ class kkFactory extends Factory
         // $id = DB::select("SHOW TABLE STATUS LIKE 'kk'");
         // $next_id = $id[0]->Auto_increment;
         return [            
-            'no_kk' => $this->faker->unique()->numberBetween(100000000000, 999999999999),
+            'no_kk' => $this->faker->unique()->numberBetween(1000000000000000, 9999999999999999),
+            'id_adm' => '1',
             'stat_kk' => '1',
         ];
     }

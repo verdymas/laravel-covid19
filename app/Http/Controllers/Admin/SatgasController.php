@@ -16,7 +16,7 @@ class SatgasController extends Controller
      */
     public function index()
     {
-        $data = akun_admin::where('roles', '1')->paginate(5);
+        $data = akun_admin::where('roles', '1')->get();
 
         return view('admin.satgas.index', compact('data'));
     }
@@ -105,7 +105,7 @@ class SatgasController extends Controller
         }
         $d->nm_adm = $request->nm_adm;
         $d->img_adm = '';
-        $d->stat_adm = $request->stat_adm;
+        $d->stat_adm = 1;
         $d->roles = 1;
         if ($d->save()) {
             $act == 'store'

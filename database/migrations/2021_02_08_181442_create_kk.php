@@ -16,6 +16,10 @@ class CreateKk extends Migration
         Schema::create('kk', function (Blueprint $table) {
             $table->bigIncrements('id_kk');
             $table->string('no_kk', 100)->unique();
+
+            $table->bigInteger('id_adm')->unsigned();
+            $table->foreign('id_adm')->references('id_adm')->on('akun_admin');
+
             $table->smallInteger('stat_kk');
         });
     }

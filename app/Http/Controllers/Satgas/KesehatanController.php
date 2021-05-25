@@ -30,12 +30,12 @@ class KesehatanController extends Controller
     public function index()
     {
         $select = [
-            'w.id_wrg', 'w.nm_wrg', 'hp.val_help AS jk', 'he.val_help AS st_skt', DB::raw("TIMESTAMPDIFF(YEAR, tgllhr_wrg, CURDATE()) AS umur_wrg"),
+            'w.nik_wrg', 'w.nm_wrg', 'hp.val_help AS jk', 'he.val_help AS st_skt', DB::raw("TIMESTAMPDIFF(YEAR, tgllhr_wrg, CURDATE()) AS umur_wrg"),
         ];
 
         $where['id_adm'] = auth()->guard('satgas')->user()->id_adm;
 
-        $data = $this->warga->fetch_data(true, 1, $select, $where)->paginate(5);
+        $data = $this->warga->fetch_data(true, 1, $select, $where)->get();
 
         return view('satgas.sehat.index', compact('data'));
     }
@@ -83,7 +83,7 @@ class KesehatanController extends Controller
     public function edit($id)
     {
         $where = [
-            'w.id_wrg' => $id,
+            'w.nik_wrg' => $id,
         ];
 
         $dt['data'] = $this->warga->fetch_data(true, 1, null, $where)->first();
@@ -98,7 +98,7 @@ class KesehatanController extends Controller
             ->where('kk.id_kk', $dt['data']->id_kk);
         })
         ->join('historiskt AS h', function($j) {
-            $j->on('h.id_wrg', 'w.id_wrg')
+            $j->on('h.nik_wrg', 'w.nik_wrg')
             ->where(['st_skt' => 1, 'stat_skt' => 1]);
         })
         ->join('bantuan AS b', 'b.id_kk', 'kk.id_kk')
@@ -141,7 +141,7 @@ class KesehatanController extends Controller
 
             DB::transaction(function () use ($request, $w) {
                 $h_data = [
-                    'id_wrg' => $w->id_wrg,
+                    'nik_wrg' => $w->nik_wrg,
                     'tgl_skt' => date('Y-m-d'),
                     'tgl_sls' => date('Y-m-d', strtotime(date('Y-m-d') . "+14 days")),
                     'st_skt' => 1,

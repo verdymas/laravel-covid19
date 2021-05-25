@@ -23,9 +23,15 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="nm_wrg">Nama</label>
-                    <input type="text" name="nm_wrg" class="form-control" required>
+                <div class="row form-group">
+                    <div class="col-4 col-lg-4">
+                        <label for="nm_wrg">NIK</label>
+                        <input type="number" name="nik_wrg" class="form-control" required>
+                    </div>
+                    <div class="col-8 col-lg-8">
+                        <label for="nm_wrg">Nama</label>
+                        <input type="text" name="nm_wrg" class="form-control" required>
+                    </div>
                 </div>
                 <div class="row form-group">
                     <div class="col-5 col-lg-5">

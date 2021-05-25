@@ -15,9 +15,9 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex align-items-center justify-content-between">
-                <h3 class="card-title">ID. Warga: <span class="badge badge-success">{{ $data->id_wrg  }}</span></h3>
+                <h3 class="card-title">ID. Warga: <span class="badge badge-success">{{ $data->nik_wrg  }}</span></h3>
                 <div class="card-tools">
-                    <a href="{{ route('warga.edit', $data->id_wrg) }}" class="btn btn-primary btn-sm" title="Edit">
+                    <a href="{{ route('warga.edit', $data->nik_wrg) }}" class="btn btn-primary btn-sm" title="Edit">
                         <i class="fa fa-edit"></i></a>
                     <button onclick="history.back();" class="btn btn-primary btn-sm" title="Kembali">
                         <i class="fa fa-arrow-left"></i></button>
@@ -32,6 +32,10 @@
                         <td>
                             <a href="{{ route('kartu-keluarga.show', $data->kk->id_kk) }}">{{ $data->kk->no_kk }}</a>
                         </td>
+                    </tr>
+                    <tr>
+                        <th scope="col">NIK</th>
+                        <td>{{ $data->nik_wrg }}</td>
                     </tr>
                     <tr>
                         <th scope="col">Nama</th>
