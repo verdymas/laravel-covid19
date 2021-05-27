@@ -113,11 +113,10 @@ class KesehatanController extends Controller
             $date2 = date_create($dt['kk_skt']->tgl_skt);
 
             $dt['kk_skt']->interval = intval(date_diff($date2,$date1)->format("%R%a"));
+            $dt['ban'] = $kkSktSql->select('b.*')->first();
         } else {
             $dt['kk_skt'] = false;
         }
-
-        // return response()->json($dt['kk_skt']->interval);
 
         $dt['st_skt'] = helper::where('param_help', 'ST_SKT')->whereNotIn('code_help', [1])->get();
 

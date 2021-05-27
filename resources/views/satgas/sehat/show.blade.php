@@ -15,9 +15,9 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex align-items-center justify-content-between">
-                <h3 class="card-title">ID. Warga: <span class="badge badge-success">{{ $data->id_wrg  }}</span></h3>
+                <h3 class="card-title">ID. Warga: <span class="badge badge-success">{{ $data->nik_wrg  }}</span></h3>
                 <div class="card-tools">
-                    <a href="{{ route('kesehatan.edit', $data->id_wrg) }}" class="btn btn-primary btn-sm" title="Edit">
+                    <a href="{{ route('kesehatan.edit', $data->nik_wrg) }}" class="btn btn-primary btn-sm" title="Edit">
                         <i class="fa fa-edit"></i></a>
                     <button onclick="history.back();" class="btn btn-primary btn-sm" title="Kembali">
                         <i class="fa fa-arrow-left"></i></button>
