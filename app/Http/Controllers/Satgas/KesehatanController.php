@@ -93,16 +93,16 @@ class KesehatanController extends Controller
         }
 
         $kkSktSql = DB::table('kk')
-        ->join('warga AS w', function($j) use ($dt) {
-            $j->on('w.id_kk', 'kk.id_kk')
-            ->where('kk.id_kk', $dt['data']->id_kk);
-        })
-        ->join('historiskt AS h', function($j) {
-            $j->on('h.nik_wrg', 'w.nik_wrg')
-            ->where(['st_skt' => 1, 'stat_skt' => 1]);
-        })
-        ->join('bantuan AS b', 'b.id_kk', 'kk.id_kk')
-        ->orderBy('h.tgl_skt', 'DESC');
+            ->join('warga AS w', function ($j) use ($dt) {
+                $j->on('w.id_kk', 'kk.id_kk')
+                    ->where('kk.id_kk', $dt['data']->id_kk);
+            })
+            ->join('historiskt AS h', function ($j) {
+                $j->on('h.nik_wrg', 'w.nik_wrg')
+                    ->where(['st_skt' => 1, 'stat_skt' => 1]);
+            })
+            ->join('bantuan AS b', 'b.id_kk', 'kk.id_kk')
+            ->orderBy('h.tgl_skt', 'DESC');
 
         $dt['kk_skt'] = clone $kkSktSql;
 
@@ -112,7 +112,7 @@ class KesehatanController extends Controller
             $date1 = date_create(date('Y-m-d'));
             $date2 = date_create($dt['kk_skt']->tgl_skt);
 
-            $dt['kk_skt']->interval = intval(date_diff($date2,$date1)->format("%R%a"));
+            $dt['kk_skt']->interval = intval(date_diff($date2, $date1)->format("%R%a"));
             $dt['ban'] = $kkSktSql->select('b.*')->first();
         } else {
             $dt['kk_skt'] = false;
@@ -134,7 +134,7 @@ class KesehatanController extends Controller
     {
         $w = warga::findOrFail($id);
 
-        if ($request->act == 0) {
+        if ($request->act == 'isolasi') {
 
             $msg = ['success' => 'Data berhasil disimpan'];
 
@@ -161,7 +161,16 @@ class KesehatanController extends Controller
                 $b = $this->bantuan->insert($b_data);
             });
 
-        }
+        } elseif ($request->act == 'sehat') {
+            $h = historiskt::where(['nik_wrg' => $w->nik_wrg, 'st_skt' => 1])
+                ->update([
+                    'st_skt' => $request->st_skt,
+                    'stat_skt' => 0,
+                ]);
+
+            $msg = ['success' => 'Data berhasil disimpan'];
+        } elseif ($request->act == 'berlanjut') {
+            // on prog        }
 
         return redirect()->route('kesehatan.edit', $id)->with($msg);
     }
