@@ -89,13 +89,16 @@
                                     <td colspan="2">
                                         <i class="fas fa-hands-helping mr-2"></i>
                                         Bantuan
+                                        @if ($kk_skt)
+                                            (<span class="font-italic">pre-calculate</span>)
+                                        @endif
                                     </td>
                                 </tr>
                                 @if ($kk_skt)
                                     <tr>
                                         <td>
                                             <span class="mr-2 font-weight-bold">|</span>
-                                            Per Hari (<span class="font-italic">pre-calculate</span>)
+                                            Per Hari
                                         </td>
                                         <td class="text-right"><b>Rp. {{ number_format($kk_skt->jml_ban) }}</b></td>
                                         <input value="{{ $kk_skt->jml_ban }}" type="hidden" name="jml" required readonly>
@@ -103,7 +106,7 @@
                                     <tr>
                                         <td>
                                             <span class="mr-2 font-weight-bold">|</span>
-                                            Jumlah (<span class="font-italic">pre-calculate</span>)
+                                            Jumlah
                                         </td>
                                         <td class="text-right"><b>x{{ $kk_skt->interval }}</b></td>
                                         <input value="{{ $kk_skt->interval }}" type="hidden" name="hri" required
@@ -112,7 +115,7 @@
                                     <tr>
                                         <td>
                                             <span class="mr-2 font-weight-bold">|</span>
-                                            Total Bantuan (<span class="font-italic">pre-calculate</span>)
+                                            Total Bantuan
                                         </td>
                                         <td class="text-right"><b>Rp.
                                                 {{ number_format($kk_skt->jml_ban * $kk_skt->interval) }}</b></td>
@@ -255,6 +258,15 @@
                                         </td>
                                         <td class="text-right"><b>Rp. {{ number_format($ban->tot_ban) }}</b></td>
                                     </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <select name="st_skt" id="st_skt" class="form-control form-control-sm"
+                                                x-model="st_skt" required>
+                                                <option value="">-- pilih satu --</option>
+                                                <option value="0">Sehat</option>
+                                            </select>
+                                        </td>
+                                    </tr>
                             @endif
                         </form>
                     </table>
@@ -365,6 +377,90 @@
                             </table>
                         </template>
                     </form>
+                    @if ($data->stat_skt == 1)
+                        <form method="post" x-ref="formSehat" action="{{ route('kesehatan.update', $data->nik_wrg) }}">
+                            <template x-if="st_skt == 0">
+                                <table class="table table-hover table-striped table-bordered">
+                                    <tr>
+                                        <td colspan="5">
+                                            <h3 class="mb-0 font-weight-bold">Pasien Sehat</h3>
+                                        </td>
+                                    </tr>
+                                    @csrf
+                                    @method('patch')
+                                    <input type="hidden" name="st_skt" value="0">
+                                    <input type="hidden" name="act" value="pasiensehat">
+                                    <tr>
+                                        <td colspan="2">
+                                            <i class="fas fa-sticky-note mr-2"></i>
+                                            Keterangan (<span class="font-italic">* pembaruan data</span>)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="mr-2 font-weight-bold">|</span>
+                                            Tanggal Isolasi
+                                        </td>
+                                        <td><b>{{ date('d-m-Y', strtotime($his->tgl_skt)) }}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="mr-2 font-weight-bold">|</span>
+                                            Tanggal selesai Isolasi
+                                        </td>
+                                        <td><b>{{ date('d-m-Y') }}</b></td>
+                                        <input type="hidden" value="{{ date('Y-m-d') }}" name="tgl_sls">
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <i class="fas fa-hands-helping mr-2"></i>
+                                            Bantuan (<span class="font-italic">* pembaruan data</span>)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="mr-2 font-weight-bold">|</span>
+                                            Per Hari
+                                        </td>
+                                        <td class="text-right"><b>Rp. {{ number_format($ban->jml_ban) }}</b></td>
+                                    </tr>
+                                    <tr>
+                                        @php
+                                            $date1 = date_create($his->tgl_skt);
+                                            $date2 = date_create(date('Y-m-d'));
+                                            
+                                            $interval = date_diff($date1, $date2)->format('%a');
+                                        @endphp
+                                        <td>
+                                            <span class="mr-2 font-weight-bold">|</span>
+                                            Jumlah
+                                        </td>
+                                        <td class="text-right"><b>x{{ $interval }}</b></td>
+                                        <input type="hidden" value="{{ $interval }}" name="hri_ban">
+                                    </tr>
+                                    <tr>
+                                        @php
+                                            $tot = $ban->jml_ban * $interval;
+                                        @endphp
+                                        <td>
+                                            <span class="mr-2 font-weight-bold">|</span>
+                                            Total Bantuan
+                                        </td>
+                                        <td class="text-right"><b>Rp. {{ number_format($tot) }}</b></td>
+                                        <input type="hidden" value="{{ $tot }}" name="tot_ban">
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-right">
+                                            <button type="submit" @click="$refs.formSehat.submit()"
+                                                class="btn btn-primary">Ubah</button>
+                                            <a href="{{ route('kesehatan.index') }}"
+                                                class="btn btn-default ml-2">Batal</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </template>
+                        </form>
+                    @endif
                 </div>
             </div>
         </div>

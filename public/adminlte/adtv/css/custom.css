@@ -226,3 +226,9 @@ body.swal2-shown {
 }
 
 /* end sweetalert2 */
+
+.datatable-header > .dataTables_filter label {
+	margin: 0;
+}
+
+/* end datatables */

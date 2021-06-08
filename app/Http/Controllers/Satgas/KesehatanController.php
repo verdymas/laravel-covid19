@@ -30,7 +30,7 @@ class KesehatanController extends Controller
     public function index()
     {
         $select = [
-            'w.nik_wrg', 'w.nm_wrg', 'hp.val_help AS jk', 'he.val_help AS st_skt', DB::raw("TIMESTAMPDIFF(YEAR, tgllhr_wrg, CURDATE()) AS umur_wrg"),
+            'k.no_kk', 'w.nik_wrg', 'w.nm_wrg', 'hp.val_help AS jk', 'he.val_help AS st_skt', DB::raw("TIMESTAMPDIFF(YEAR, tgllhr_wrg, CURDATE()) AS umur_wrg"),
         ];
 
         $where['id_adm'] = auth()->guard('satgas')->user()->id_adm;
@@ -112,7 +112,7 @@ class KesehatanController extends Controller
             $date1 = date_create(date('Y-m-d'));
             $date2 = date_create($dt['kk_skt']->tgl_skt);
 
-            $dt['kk_skt']->interval = intval(date_diff($date2, $date1)->format("%R%a"));
+            $dt['kk_skt']->interval = intval(date_diff($date2, $date1)->format("%a"));
             $dt['ban'] = $kkSktSql->select('b.*')->first();
         } else {
             $dt['kk_skt'] = false;
@@ -164,6 +164,7 @@ class KesehatanController extends Controller
         } elseif ($request->act == 'sehat') {
             $h = historiskt::where(['nik_wrg' => $w->nik_wrg, 'st_skt' => 1])
                 ->update([
+                    'tgl_smb' => date('Y-m-d'),
                     'st_skt' => $request->st_skt,
                     'stat_skt' => 0,
                 ]);
@@ -197,6 +198,25 @@ class KesehatanController extends Controller
                 ];
 
                 $b = $this->bantuan->insert($b_data);
+            });
+
+            $msg = ['success' => 'Data berhasil disimpan'];
+        } elseif ($request->act == 'pasiensehat') {
+            DB::transaction(function () use ($request, $w) {
+                $his = historiskt::where(['nik_wrg' => $w->nik_wrg, 'st_skt' => 1]);
+
+                $ban = bantuan::where('id_his', $his->first()->id_his)->update([
+                    'hri_ban' => $request->hri_ban,
+                    'tot_ban' => $request->tot_ban,
+                ]);
+
+                $his->update([
+                    'tgl_sls' => $request->tgl_sls,
+                    'tgl_smb' => date('Y-m-d'),
+                    'st_skt' => $request->st_skt,
+                    'stat_skt' => 0,
+                ]);
+
             });
 
             $msg = ['success' => 'Data berhasil disimpan'];

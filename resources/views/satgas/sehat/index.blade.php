@@ -12,9 +12,10 @@
                 <thead>
                     <tr>
                         <th scope="col">Nama</th>
+                        <th scope="col" style="width: 10%">No KK</th>
                         <th scope="col" style="width: 5%" class="text-center">Usia</th>
-                        <th scope="col" style="width: 15%" class="text-center">Jenis Kelamin</th>
-                        <th scope="col" style="width: 10%" class="text-center">Kesehatan</th>
+                        <th scope="col" style="width: 10%" class="text-center">Kelamin</th>
+                        <th scope="col" style="width: 5%" class="text-center">Kesehatan</th>
                         <th scope="col" style="width: 15%" class="text-center"><i class="fa fa-exclamation-circle"></i>
                     </tr>
                 </thead>
@@ -22,6 +23,7 @@
                     @foreach ($data as $k => $v)
                         <tr>
                             <td>{{ $v->nm_wrg }}</td>
+                            <td>{{ $v->no_kk }}</td>
                             <td>{{ $v->umur_wrg }}</td>
                             <td>{{ $v->jk }}</td>
                             <td>{{ $v->st_skt }}</td>
@@ -65,7 +67,7 @@
                     },
 
                 ],
-                dom: '<"datatable-header"<"float-right"B>><"datatable-scroll-wrap"tr><"d-flex justify-content-between"ip>',
+                dom: '<"datatable-header d-flex align-items-center justify-content-between"fB><"datatable-scroll-wrap"tr><"d-flex justify-content-between"ip>',
                 columnDefs: [{
                         targets: 'no-sort',
                         orderable: false,

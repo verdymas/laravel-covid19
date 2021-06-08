@@ -75,8 +75,9 @@
                     <thead>
                         <tr>
                             <th scope="col">Nama</th>
+                            <th scope="col">No KK</th>
                             <th scope="col" class="text-center">Kelamin</th>
-                            <th scope="col" class="text-center">Status</th>
+                            {{-- <th scope="col" class="text-center">Status</th> --}}
                             <th scope="col" class="text-center"><span class="d-none">Settings</span><i
                                     class="fa fa-exclamation-circle"></i>
                             </th>
@@ -86,11 +87,12 @@
                         @foreach ($data as $k => $v)
                             <tr>
                                 <td>{{ $v->nm_wrg }}</td>
+                                <td>{{ $v->kk->no_kk }}</td>
                                 <td>{{ $v->jk_wrg == '1' ? 'Pria' : 'Wanita' }}</td>
-                                <td>
+                                {{-- <td>
                                     <span class="badge badge-{{ $v->stat_wrg == 1 ? 'success' : 'danger' }}">
                                         {{ $v->stat_wrg == 1 ? 'Active' : 'Inactive' }}</span>
-                                </td>
+                                </td> --}}
                                 <td>
                                     <a href="{{ route('warga.edit', $v->nik_wrg) }}" class="btn btn-primary btn-sm"
                                         title="Ubah"><i class="fa fa-edit"></i></a>
@@ -132,7 +134,7 @@
                     },
 
                 ],
-                dom: '<"datatable-header"<"float-right"B>><"datatable-scroll-wrap"tr><"d-flex justify-content-between"ip>',
+                dom: '<"datatable-header d-flex align-items-center justify-content-between"fB><"datatable-scroll-wrap"tr><"d-flex justify-content-between"ip>',
                 columnDefs: [{
                         targets: 'no-sort',
                         orderable: false,

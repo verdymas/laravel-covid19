@@ -93,7 +93,7 @@
                     },
 
                 ],
-                dom: '<"datatable-header"<"float-right"B>><"datatable-scroll-wrap"tr><"d-flex justify-content-between"ip>',
+                dom: '<"datatable-header d-flex align-items-center justify-content-between"fB><"datatable-scroll-wrap"tr><"d-flex justify-content-between"ip>',
                 columnDefs: [{
                         targets: 'no-sort',
                         orderable: false,
