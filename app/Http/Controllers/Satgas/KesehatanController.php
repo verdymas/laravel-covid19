@@ -170,7 +170,8 @@ class KesehatanController extends Controller
 
             $msg = ['success' => 'Data berhasil disimpan'];
         } elseif ($request->act == 'berlanjut') {
-            // on prog        }
+            // on prog
+        }
 
         return redirect()->route('kesehatan.edit', $id)->with($msg);
     }
