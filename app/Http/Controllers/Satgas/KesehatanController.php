@@ -170,7 +170,36 @@ class KesehatanController extends Controller
 
             $msg = ['success' => 'Data berhasil disimpan'];
         } elseif ($request->act == 'berlanjut') {
-            // on prog
+            DB::transaction(function () use ($request, $w) {
+                $h = historiskt::where(['nik_wrg' => $w->nik_wrg, 'st_skt' => 1])
+                    ->update([
+                        'st_skt' => $request->st_skt,
+                        'stat_skt' => 0,
+                    ]);
+
+                $h_data = [
+                    'nik_wrg' => $w->nik_wrg,
+                    'tgl_skt' => date('Y-m-d'),
+                    'tgl_sls' => date('Y-m-d', strtotime(date('Y-m-d') . "+14 days")),
+                    'st_skt' => 1,
+                    'stat_skt' => 1,
+                ];
+
+                $h = $this->historiskt->insert($h_data);
+
+                $b_data = [
+                    'tgl_ban' => date('Y-m-d'),
+                    'jml_ban' => $request->jml,
+                    'hri_ban' => $request->hri,
+                    'tot_ban' => $request->jml * $request->hri,
+                    'id_kk' => $w->kk->id_kk,
+                    'id_his' => $h,
+                ];
+
+                $b = $this->bantuan->insert($b_data);
+            });
+
+            $msg = ['success' => 'Data berhasil disimpan'];
         }
 
         return redirect()->route('kesehatan.edit', $id)->with($msg);
