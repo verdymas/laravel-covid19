@@ -19,7 +19,7 @@ class historiskt extends Model
 
     public function warga()
     {
-        return $this->belongsTo(warga::class, 'nik_wrg', 'id_wrg');
+        return $this->belongsTo(warga::class, 'nik_wrg', 'nik_wrg');
     }
 
     public function insert($array)

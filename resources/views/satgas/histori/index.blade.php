@@ -1,36 +1,42 @@
-@extends('admin.base')
-@section('title', 'Bantuan')
+@extends('satgas.base')
+@section('title', 'Histori')
 @section('content')
     <div class="card">
         <div class="card-header">
             <div class="d-flex align-items-center justify-content-between">
-                <h3 class="card-title">Bantuan</h3>
+                <h3 class="card-title">Histori Sakit</h3>
             </div>
         </div>
         <div class="card-body">
-            <table class="table table-striped table-bordered table-hover mb-3" id="table-bntu-i">
+            <table class="table table-striped table-bordered table-hover mb-3" id="table-histori-i">
                 <thead>
                     <tr>
-                        <th scope="col">No. Kartu Keluarga</th>
-                        <th scope="col" class="text-right">Jumlah</th>
-                        <th scope="col" class="text-right">Hari</th>
-                        <th scope="col" class="text-right">Total</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col" class="text-center">NIK</th>
                         <th scope="col" class="text-center">Tanggal</th>
+                        <th scope="col" class="text-center">Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($data as $k => $v)
                         <tr>
+                            <td>{{ $v->nm_wrg }}</td>
+                            <td>{{ $v->nik_wrg }}</td>
                             <td>
-                                <a href="{{ route('kartu-keluarga.show', $v->kk->id_kk) }}">{{ $v->kk->no_kk }}</a>
-                            </td>
-                            <td>{{ App\Helpers\Helper::formatRupiah($v->jml_ban, 0) }}</td>
-                            <td>x{{ $v->hri_ban }}</td>
-                            <td>{{ App\Helpers\Helper::formatRupiah($v->tot_ban, 0) }}</td>
-                            <td>
-                                {{ date('d-m-Y', strtotime($v->his->tgl_skt)) }}
+                                {{ date('d-m-Y', strtotime($v->tgl_skt)) }}
                                 <span class="badge badge-success mx-2"><i class="fas fa-arrow-right"></i></span>
-                                {{ date('d-m-Y', strtotime($v->his->tgl_sls)) }}
+                                {{ date('d-m-Y', strtotime($v->tgl_sls)) }}
+                            </td>
+                            <td>
+                                @if ($v->stat_skt === 1)
+                                    <span class="badge badge-primary">Isolasi</span>
+                                @elseif ($v->st_skt == 0)
+                                    <span class="badge badge-success">Sembuh</span>
+                                @elseif ($v->st_skt == 2)
+                                    <span class="badge badge-warning">Berlanjut</span>
+                                @else
+                                    <span class="badge badge-danger">Unknown</span>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -43,7 +49,7 @@
 @section('extrajs')
     <script>
         $(function() {
-            $('#table-bntu-i').DataTable({
+            $('#table-histori-i').DataTable({
                 deferRender: true,
                 scrollY: 300,
                 scrollCollapse: true,

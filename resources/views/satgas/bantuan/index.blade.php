@@ -1,4 +1,4 @@
-@extends('admin.base')
+@extends('satgas.base')
 @section('title', 'Bantuan')
 @section('content')
     <div class="card">
@@ -22,15 +22,15 @@
                     @foreach ($data as $k => $v)
                         <tr>
                             <td>
-                                <a href="{{ route('kartu-keluarga.show', $v->kk->id_kk) }}">{{ $v->kk->no_kk }}</a>
+                                {{ $v->no_kk }}
                             </td>
                             <td>{{ App\Helpers\Helper::formatRupiah($v->jml_ban, 0) }}</td>
                             <td>x{{ $v->hri_ban }}</td>
                             <td>{{ App\Helpers\Helper::formatRupiah($v->tot_ban, 0) }}</td>
                             <td>
-                                {{ date('d-m-Y', strtotime($v->his->tgl_skt)) }}
+                                {{ date('d-m-Y', strtotime($v->tgl_skt)) }}
                                 <span class="badge badge-success mx-2"><i class="fas fa-arrow-right"></i></span>
-                                {{ date('d-m-Y', strtotime($v->his->tgl_sls)) }}
+                                {{ date('d-m-Y', strtotime($v->tgl_sls)) }}
                             </td>
                         </tr>
                     @endforeach

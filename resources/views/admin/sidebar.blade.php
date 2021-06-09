@@ -78,7 +78,7 @@
                 <li class="nav-item">
                     <a href="{{ route('bantuan.index') }}"
                        class="nav-link {{ request()->routeIs('bantuan*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-book"></i>
+                        <i class="nav-icon fas fa-atlas"></i>
                         <p>
                             Bantuan
                         </p>

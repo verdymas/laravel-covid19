@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\BantuanController as AdmBantuanController;
-
 // admin-controller
 use App\Http\Controllers\Admin\HistoriController as AdmHistoriController;
 use App\Http\Controllers\Admin\HomeController as AdmHomeController;
@@ -9,11 +7,14 @@ use App\Http\Controllers\Admin\KkController as AdmKkController;
 use App\Http\Controllers\Admin\LoginController as AdmLoginController;
 use App\Http\Controllers\Admin\SatgasController as AdmSatgasController;
 use App\Http\Controllers\Admin\WargaController as AdmWargaController;
-use App\Http\Controllers\Satgas\HomeController as StgHomeController;
+use App\Http\Controllers\Admin\BantuanController as AdmBantuanController;
 
 // satgas-controller
+use App\Http\Controllers\Satgas\HomeController as StgHomeController;
 use App\Http\Controllers\Satgas\KesehatanController as StgSehatController;
 use App\Http\Controllers\Satgas\LoginController as StgLoginController;
+use App\Http\Controllers\Satgas\HistoriController as StgHistoriController;
+use App\Http\Controllers\Satgas\BantuanController as StgBantuanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,6 +68,8 @@ Route::group(['prefix' => 'satgas'], function () {
         Route::get('home', [StgHomeController::class, 'index'])->name('satgas.home');
 
         Route::resource('kesehatan', StgSehatController::class);
+        Route::resource('bantuan', StgBantuanController::class, ['as' => 'stg']);
+        Route::resource('histori', StgHistoriController::class, ['as' => 'stg']);
 
         Route::get('logout', [StgLoginController::class, 'logout'])->name('satgas.logout');
     });

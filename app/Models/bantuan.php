@@ -20,6 +20,11 @@ class bantuan extends Model
         return $this->belongsTo(kk::class, 'id_kk', 'id_kk');
     }
 
+    public function his()
+    {
+        return $this->hasOne(historiskt::class, 'id_his', 'id_his');
+    }
+
     public function insert($array)
     {
         return DB::table($this->table)->insertGetId($array);

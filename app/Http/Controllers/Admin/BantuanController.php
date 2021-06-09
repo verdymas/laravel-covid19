@@ -15,7 +15,7 @@ class BantuanController extends Controller
      */
     public function index()
     {
-        $data = bantuan::with('kk')->paginate(5);
+        $data = bantuan::all();
 
         return view('admin.bantuan.index', compact('data'));
     }

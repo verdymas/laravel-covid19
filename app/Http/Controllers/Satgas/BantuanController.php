@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Satgas;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\bantuan;
+use DB;
 
-class HistoriController extends Controller
+class BantuanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,13 @@ class HistoriController extends Controller
      */
     public function index()
     {
-        $data = bantuan::all();
+        $data = DB::table('bantuan AS b')
+        ->join('historiskt AS h', 'b.id_his', 'h.id_his')
+        ->join('kk' , 'kk.id_kk', 'b.id_kk')
+        ->where('kk.id_adm', auth()->guard('satgas')->user()->id_adm)
+        ->get();
 
-        return view('admin.histori.index', compact('data'));      
+        return view('satgas.bantuan.index', compact('data'));
     }
 
     /**
