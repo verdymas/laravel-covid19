@@ -12,22 +12,24 @@
         <div id="user-panel-container">
             <div class="user-panel mt-3 pb-3 mb-3 d-flex" id="user-panel">
                 <div class="image">
-                    <?php if (
-                    auth()
-                    ->guard('satgas')
-                    ->user()->img_adm != ''
-                    ) {
-                    $pp_adm = auth()
-                    ->guard('satgas')
-                    ->user()->img_adm;
-                    } else {
-                    $pp_adm = 'default-photo.png';
-                    } ?>
+                    @php
+                        if (
+                            auth()
+                                ->guard('satgas')
+                                ->user()->img_adm != ''
+                        ) {
+                            $pp_adm = auth()
+                                ->guard('satgas')
+                                ->user()->img_adm;
+                        } else {
+                            $pp_adm = 'default-photo.png';
+                        }
+                    @endphp
                     <img src="{{ asset('adminlte/avatar/' . $pp_adm) }}" class="img-circle elevation-2"
                         alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="{{-- route('account.index') --}}" class="d-block">{{ auth()->guard('satgas')->user()->nm_adm }}</a>
+                    <a href="{{ route('stg.account.index') }}" class="d-block">{{ auth()->guard('satgas')->user()->nm_adm }}</a>
                 </div>
             </div>
         </div>
@@ -74,7 +76,7 @@
                 </li>
                 <div class="divider"></div>
                 <li class="nav-item">
-                    <a href="{{-- route('account.index') --}}" class="nav-link {{-- request()->routeIs('account.index*') ? 'active' : '' --}}">
+                    <a href="{{ route('stg.account.index') }}" class="nav-link {{ request()->routeIs('stg.account.index*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>
                             Account

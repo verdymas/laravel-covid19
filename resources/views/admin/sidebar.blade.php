@@ -27,7 +27,7 @@
                         alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="{{-- route('account.index') --}}" class="d-block">{{ auth()->guard('admin')->user()->nm_adm }}</a>
+                    <a href="{{ route('account.index') }}" class="d-block">{{ auth()->guard('admin')->user()->nm_adm }}</a>
                 </div>
             </div>
         </div>
@@ -97,7 +97,7 @@
                 </li>
                 <div class="divider"></div>
                 <li class="nav-item">
-                    <a href="{{-- route('account.index') --}}" class="nav-link {{-- request()->routeIs('account.index*') ? 'active' : '' --}}">
+                    <a href="{{ route('account.index') }}" class="nav-link {{ request()->routeIs('account.index*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>
                             Account
