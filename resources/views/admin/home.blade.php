@@ -108,9 +108,9 @@
         <!-- ./col -->
     </div>
     {{-- /.row --}}
-    <div class="row">
+    <div class="row mb-4">
         <div class="col-lg-4 col-sm-12">
-            <div class="card card-outline card-primary">
+            <div class="card card-outline card-primary h-100">
                 <div class="card-header">
                     <h3 class="card-title font-weight-bold">
                         <i class="fas fa-user-injured mr-2"></i>
@@ -139,7 +139,7 @@
         </div>
         {{-- /.col --}}
         <div class="col-lg-4 col-sm-12">
-            <div class="card card-outline card-primary">
+            <div class="card card-outline card-primary h-100">
                 <div class="card-header">
                     <h3 class="card-title font-weight-bold">
                         <i class="fas fa-user-plus mr-2"></i>
@@ -168,7 +168,7 @@
         </div>
         {{-- /.col --}}
         <div class="col-lg-4 col-sm-12">
-            <div class="card card-outline card-primary">
+            <div class="card card-outline card-primary h-100">
                 <div class="card-header">
                     <h3 class="card-title font-weight-bold">
                         <i class="fas fa-user-plus mr-2"></i>
@@ -198,9 +198,9 @@
         {{-- /.col --}}
     </div>
     {{-- /.row --}}
-    <div class="row">
+    <div class="row mb-4">
         <div class="col-lg-4 col-sm-12">
-            <div class="card card-outline card-primary">
+            <div class="card card-outline card-primary h-100">
                 <div class="card-header">
                     <h3 class="card-title font-weight-bold">
                         <i class="fas fa-user-injured mr-2"></i>
@@ -229,7 +229,7 @@
         </div>
         {{-- /.col --}}
         <div class="col-lg-4 col-sm-12">
-            <div class="card card-outline card-primary">
+            <div class="card card-outline card-primary h-100">
                 <div class="card-header">
                     <h3 class="card-title font-weight-bold">
                         <i class="fas fa-user-plus mr-2"></i>
@@ -258,7 +258,7 @@
         </div>
         {{-- /.col --}}
         <div class="col-lg-4 col-sm-12">
-            <div class="card card-outline card-primary">
+            <div class="card card-outline card-primary h-100">
                 <div class="card-header">
                     <h3 class="card-title font-weight-bold">
                         <i class="fas fa-user-plus mr-2"></i>
@@ -294,10 +294,7 @@
     <script>
         $(function() {
             $('.table').DataTable({
-                deferRender: true,
-                scrollY: 300,
-                scrollCollapse: true,
-                scroller: true,
+                pageLength: 5,
                 dom: '<"mb-2 datatable-header d-flex align-items-center justify-content-center"f><"datatable-scroll-wrap"tr><"mt-2 d-flex justify-content-center"p>',
                 columnDefs: [{
                         targets: 'no-sort',
