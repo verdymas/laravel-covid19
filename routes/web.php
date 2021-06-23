@@ -41,6 +41,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::group(['middleware' => 'admin'], function () {
         Route::get('home', [AdmHomeController::class, 'index'])->name('admin.home');
+        Route::get('laporan', [AdmHomeController::class, 'laporan'])->name('admin.laporan');
 
         Route::prefix('data')->group(function () {
             //kartu-keluarga
