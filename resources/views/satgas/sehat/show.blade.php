@@ -44,10 +44,6 @@
                         <td>{{ $data->jk_wrg == 1 ? 'Pria' : 'Wanita' }}</td>
                     </tr>
                     <tr>
-                        <th scope="col">Alamat</th>
-                        <td>{{ $data->almt_wrg }}</td>
-                    </tr>
-                    <tr>
                         <th scope="col">Keterangan Sakit</th>
                         <td>{{ $data->skt_wrg }}</td>
                     </tr>

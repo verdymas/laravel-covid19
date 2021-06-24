@@ -43,13 +43,6 @@
                                             class="mr-2 font-weight-bold">|</span>{{ $data->jk_wrg == 1 ? 'Pria' : 'Wanita' }}</span>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <b>Alamat</b><br>
-                                    <span class="d-block"><span
-                                            class="mr-2 font-weight-bold">|</span>{{ $data->almt_wrg }}</span>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
