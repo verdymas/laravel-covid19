@@ -59,11 +59,6 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="almt_wrg">Alamat</label>
-                    <textarea name="almt_wrg" id="" almt_wrg cols="30" rows="3" class="form-control"
-                        required>{{ $data->almt_wrg }}</textarea>
-                </div>
-                <div class="form-group">
                     <label>Status</label>
                     <select name="stat_wrg" class="form-control" required>
                         <option value="">-- pilih satu --</option>

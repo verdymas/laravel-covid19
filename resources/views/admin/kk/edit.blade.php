@@ -44,6 +44,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label>Alamat</label>
+                    <textarea name="almt_kk" rows="3" class="form-control" placeholder="Alamat" required>{{ $data->almt_kk }}</textarea>
+                </div>
             </div>
             <div class="card-footer">
                 <div class="float-right">

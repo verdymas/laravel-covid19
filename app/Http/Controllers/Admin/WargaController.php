@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\warga;
 use App\Models\kk;
-use function PHPUnit\Framework\returnArgument;
+use Illuminate\Validation\Rule;
 
 class WargaController extends Controller
 {
@@ -45,6 +45,10 @@ class WargaController extends Controller
     {
         $d = new warga;
         $msg = $this->save($d, $request, 'store');
+
+        if (isset($msg['error'])) {
+            return redirect()->back()->with($msg)->withInput();
+        }
 
         return redirect()->route('warga.show', $request->nik_wrg)->with($msg);
     }
@@ -104,6 +108,24 @@ class WargaController extends Controller
 
     private function save(warga $d, Request $request, $act)
     {
+        $jmlWrg = warga::where('id_kk', $request->id_kk)->count();
+
+        if ($jmlWrg === 6) {
+            $msg = [
+                'error' => 'Jumlah Warga dalam 1 Kartu Keluarga Maksimal 6'
+            ];
+
+            return $msg;
+        }
+
+        $request->validate([
+            'nik_wrg' => ['required', Rule::unique('App\Models\warga')->ignore($d->nik_wrg, 'nik_wrg')],
+            'nm_wrg' => 'required',
+            'tmplhr_wrg' => 'required',
+            'tgllhr_wrg' => 'required',
+            'jk_wrg' => 'required',
+        ]);
+
         $kk = kk::findOrFail($request->id_kk);
 
         $d->id_kk = $kk->id_kk;
@@ -112,7 +134,6 @@ class WargaController extends Controller
         $d->tmplhr_wrg = $request->tmplhr_wrg;
         $d->tgllhr_wrg = $request->tgllhr_wrg;
         $d->jk_wrg = $request->jk_wrg;
-        $d->almt_wrg = $request->almt_wrg;
 
         $d->stat_wrg = 1;
         if ($d->save()) {

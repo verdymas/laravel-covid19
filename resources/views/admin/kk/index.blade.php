@@ -6,10 +6,19 @@
             <button type="button" class="close" data-dismiss="alert">×</button>
             {{ $msg }}
         </div>
-    @elseif($msg = session()->get('success'))
+    @elseif($msg = session()->get('error'))
         <div class="alert alert-danger">
             <button type="button" class="close" data-dismiss="alert">×</button>
             {{ $msg }}
+        </div>
+    @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            @foreach ($errors->all() as $error)
+                @if (!$loop->first)<br>@endif
+                {{ $error }}
+            @endforeach
         </div>
     @endif
     <div class="card">
@@ -31,14 +40,16 @@
                     </div>
                     @csrf
                     <div class="form-group">
-                        <input type="text" name="no_kk" id="no_kk" class="form-control" placeholder="No. Kartu Keluarga"
-                            required>
+                        <input type="text" name="no_kk" id="no_kk" class="form-control" placeholder="No. Kartu Keluarga" value="{{ old('no_kk') }}" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="almt_kk" class="form-control" placeholder="Alamat" rows="3" required>{{ old('almt_kk') }}</textarea>
                     </div>
                     <div class="form-group">
                         <select name="id_adm" id="id_adm" class="form-control" required>
                             <option value="">-- pilih satgas --</option>
                             @foreach ($stg as $i)
-                                <option value="{{ $i->id_adm }}">{{ $i->username }} | {{ $i->nm_adm }}
+                                <option value="{{ $i->id_adm }}" {{ $i->id_adm == old('id_adm') ? 'selected' : '' }}>{{ $i->username }} | {{ $i->nm_adm }}
                                 </option>
                             @endforeach
                         </select>
@@ -53,8 +64,7 @@
                             <th scope="col" class="text-center">Jumlah</th>
                             <th scope="col" class="text-center">Admin</th>
                             <th scope="col" class="text-center">Status</th>
-                            <th scope="col" class="no-sort text-center"><span class="d-none">Settings</span><i
-                                    class="fa fa-exclamation-circle"></i>
+                            <th scope="col" class="no-sort text-center"><span class="d-none">Settings</span><i class="fa fa-exclamation-circle"></i>
                             </th>
                         </tr>
                     </thead>

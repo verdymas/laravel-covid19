@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\akun_admin;
 use App\Models\kk;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class KkController extends Controller
 {
@@ -148,7 +149,13 @@ class KkController extends Controller
 
     private function save(kk $d, Request $request, $act)
     {
+        $request->validate([
+            'no_kk' => ['required', Rule::unique('App\Models\kk')->ignore($d->id_kk, 'id_kk')],
+            'almt_kk' => 'required',
+        ]);
+
         $d->no_kk = $request->no_kk;
+        $d->almt_kk = $request->almt_kk;
         $d->stat_kk = 1;
         $d->id_adm = $request->id_adm;
         if ($d->save()) {

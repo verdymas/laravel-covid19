@@ -6,10 +6,19 @@
             <button type="button" class="close" data-dismiss="alert">×</button>
             {{ $msg }}
         </div>
-    @elseif($msg = session()->get('success'))
+    @elseif($msg = session()->get('error'))
         <div class="alert alert-danger">
             <button type="button" class="close" data-dismiss="alert">×</button>
             {{ $msg }}
+        </div>
+    @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            @foreach ($errors->all() as $error)
+                @if (!$loop->first)<br>@endif
+                {{ $error }}
+            @endforeach
         </div>
     @endif
     <div class="card">
@@ -44,29 +53,25 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="number" name="nik_wrg" class="form-control" placeholder="NIK" required>
+                        <input type="number" value="{{ old('nik_wrg') }}" name="nik_wrg" class="form-control" placeholder="NIK" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="nm_wrg" class="form-control" placeholder="Nama" required>
+                        <input type="text" value="{{ old('nm_wrg') }}" name="nm_wrg" class="form-control" placeholder="Nama" required>
                     </div>
                     <div class="row form-group">
                         <div class="col-5 col-lg-5">
-                            <input type="text" name="tmplhr_wrg" class="form-control" placeholder="Tempat" required>
+                            <input type="text" value="{{ old('tmplhr_wrg') }}" name="tmplhr_wrg" class="form-control" placeholder="Tempat" required>
                         </div>
                         <div class="col-7 col-lg-7">
-                            <input type="date" name="tgllhr_wrg" class="form-control" placeholder="Tanggal" required>
+                            <input type="date" value="{{ old('tgllhr_wrg') }}" name="tgllhr_wrg" class="form-control" placeholder="Tanggal" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <select name="jk_wrg" id="jk_wrg" class="form-control" required>
                             <option value="">-- pilih kelamin --</option>
-                            <option value="1">Pria</option>
-                            <option value="0">Wanita</option>
+                            <option value="1" {{ old('jk_wrg') === 1 ? 'selected' : '' }}>Pria</option>
+                            <option value="0" {{ old('jk_wrg') === 0 ? 'selected' : '' }}>Wanita</option>
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <textarea name="almt_wrg" id="" almt_wrg cols="30" rows="3" class="form-control"
-                            placeholder="Alamat" required></textarea>
                     </div>
                 </form>
             </div>

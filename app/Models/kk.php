@@ -15,7 +15,7 @@ class kk extends Model
     protected $table = 'kk';
     protected $primaryKey = 'id_kk';
 
-    protected $fillable = ['no_kk', 'id_adm', 'stat_kk'];
+    protected $fillable = ['no_kk', 'almt_kk','id_adm', 'stat_kk'];
 
     public $timestamps = false;
 

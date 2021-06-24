@@ -19,7 +19,6 @@ class warga extends Model
         'tmplhr_wrg',
         'tgllhr_wrg',
         'jk_wrg',
-        'almt_wrg',
         'stat_wrg',
         'id_kk',
     ];

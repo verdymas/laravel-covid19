@@ -72,6 +72,7 @@ Route::group(['prefix' => 'satgas'], function () {
 
     Route::group(['middleware' => 'satgas'], function () {
         Route::get('home', [StgHomeController::class, 'index'])->name('satgas.home');
+        Route::get('laporan', [StgHomeController::class, 'laporan'])->name('satgas.laporan');
 
         Route::resource('kesehatan', StgSehatController::class);
         Route::resource('bantuan', StgBantuanController::class, ['as' => 'stg']);

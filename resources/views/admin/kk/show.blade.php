@@ -6,18 +6,26 @@
             <button type="button" class="close" data-dismiss="alert">×</button>
             {{ $msg }}
         </div>
-    @elseif($msg = session()->get('success'))
+    @elseif($msg = session()->get('error'))
         <div class="alert alert-danger">
             <button type="button" class="close" data-dismiss="alert">×</button>
             {{ $msg }}
+        </div>
+    @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            @foreach ($errors->all() as $error)
+                @if (!$loop->first)<br>@endif
+                {{ $error }}
+            @endforeach
         </div>
     @endif
     <div class="card p-0">
         <div class="card-header">
             <div class="d-flex align-items-center justify-content-between">
                 <h3 class="card-title">
-                    No. {{ $data->no_kk }}&emsp;<span
-                        class="badge badge-{{ $data->stat_kk == 1 ? 'success' : 'danger' }}">
+                    No. {{ $data->no_kk }}&emsp;<span class="badge badge-{{ $data->stat_kk == 1 ? 'success' : 'danger' }}">
                         {{ $data->stat_kk == 1 ? 'Active' : 'Inactive' }}</span>
                     <span class="badge badge-info">{{ $data->akun_admin->username }} |
                         {{ $data->akun_admin->nm_adm }}</span>
@@ -25,8 +33,7 @@
                 <div class="card-tools">
                     {{-- <a href="{{ route('warga.create', 'id_kk=' . $data->id_kk) }}" class="btn btn-primary btn-sm"
                         title="Tambah"><i class="fa fa-plus"></i> Tambah</a> --}}
-                    <a href="{{ route('kartu-keluarga.edit', $data->id_kk) }}" class="btn btn-primary btn-sm"
-                        title="Ubah"><i class="fa fa-edit"></i></a>
+                    <a href="{{ route('kartu-keluarga.edit', $data->id_kk) }}" class="btn btn-primary btn-sm" title="Ubah"><i class="fa fa-edit"></i></a>
                     <button onclick="history.back();" class="btn btn-primary btn-sm" title="Kembali">
                         <i class="fa fa-arrow-left"></i></button>
                 </div>
@@ -45,29 +52,28 @@
                         <input type="hidden" value="{{ $data->id_kk }}" name="id_kk">
                     </div>
                     <div class="form-group">
-                        <input type="number" name="nik_wrg" class="form-control" placeholder="NIK" required>
+                        <input type="number" value="{{ old('nik_wrg') }}" name="nik_wrg" class="form-control" placeholder="NIK" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="nm_wrg" class="form-control" placeholder="Nama" required>
+                        <input type="text" value="{{ old('nm_wrg') }}" name="nm_wrg" class="form-control" placeholder="Nama" required>
                     </div>
                     <div class="row form-group">
                         <div class="col-5 col-lg-5">
-                            <input type="text" name="tmplhr_wrg" class="form-control" placeholder="Tempat" required>
+                            <input type="text" value="{{ old('tmplhr_wrg') }}" name="tmplhr_wrg" class="form-control" placeholder="Tempat" required>
                         </div>
                         <div class="col-7 col-lg-7">
-                            <input type="date" name="tgllhr_wrg" class="form-control" placeholder="Tanggal" required>
+                            <input type="date" value="{{ old('tgllhr_wrg') }}" name="tgllhr_wrg" class="form-control" placeholder="Tanggal" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <select name="jk_wrg" id="jk_wrg" class="form-control" required>
                             <option value="">-- pilih kelamin --</option>
-                            <option value="1">Pria</option>
-                            <option value="0">Wanita</option>
+                            <option value="1" {{ old('jk_wrg') == 1 ? 'selected' : '' }}>Pria</option>
+                            <option value="0" {{ old('jk_wrg') == 0 ? 'selected' : '' }}>Wanita</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <textarea name="almt_wrg" id="" almt_wrg cols="30" rows="3" class="form-control"
-                            placeholder="Alamat" required></textarea>
+                        <textarea class="form-control" rows="3" placeholder="Alamat" disabled>Alamat:   {{ $data->almt_kk }}</textarea>
                     </div>
                 </form>
             </div>
@@ -78,8 +84,7 @@
                             <th scope="col">Nama</th>
                             <th scope="col" class="text-center">Kelamin</th>
                             <th scope="col" class="text-center">Status</th>
-                            <th scope="col" class="text-center"><span class="d-none">Settings</span><i
-                                    class="fa fa-exclamation-circle"></i>
+                            <th scope="col" class="text-center"><span class="d-none">Settings</span><i class="fa fa-exclamation-circle"></i>
                             </th>
                         </tr>
                     </thead>
@@ -93,10 +98,8 @@
                                         {{ $v->stat_wrg == 1 ? 'Active' : 'Inactive' }}</span>
                                 </td>
                                 <td>
-                                    <a href="{{ route('warga.edit', $v->nik_wrg) }}" class="btn btn-primary btn-sm"
-                                        title="Ubah"><i class="fa fa-edit"></i></a>
-                                    <a href="{{ route('warga.show', $v->nik_wrg) }}" class="btn btn-info btn-sm"
-                                        title="Detail"><i class="fa fa-info"></i></a>
+                                    <a href="{{ route('warga.edit', $v->nik_wrg) }}" class="btn btn-primary btn-sm" title="Ubah"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ route('warga.show', $v->nik_wrg) }}" class="btn btn-info btn-sm" title="Detail"><i class="fa fa-info"></i></a>
                                 </td>
                             </tr>
                         @endforeach
