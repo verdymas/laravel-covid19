@@ -12,7 +12,7 @@
     </div>
     <!-- Small boxes (Stat box) -->
     <div class="row">
-        <div class="col-lg-4 col-6">
+        <div class="col-lg-6 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
                 <div class="inner">
@@ -27,22 +27,7 @@
             </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-4 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-                <div class="inner">
-                    <h3>{{ count($berlanjut) }}</h3>
-
-                    <p>Pasien Berlanjut</p>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-user-minus"></i>
-                </div>
-                {{-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
-            </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-4 col-6">
+        <div class="col-lg-6 col-6">
             <!-- small box -->
             <div class="small-box bg-success">
                 <div class="inner">
@@ -60,7 +45,7 @@
     </div>
     <!-- /.row -->
     <div class="row">
-        <div class="col-lg-4 col-6">
+        <div class="col-lg-6 col-6">
             <!-- small box -->
             <div class="small-box bg-primary">
                 <div class="inner">
@@ -75,22 +60,7 @@
             </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-4 col-6">
-            <!-- small box -->
-            <div class="small-box bg-orange">
-                <div class="inner">
-                    <h3>{{ count($berlanjutbln) }}</h3>
-
-                    <p>Pasien Berlanjut (Bulan Ini)</p>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-atlas"></i>
-                </div>
-                {{-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
-            </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-4 col-6">
+        <div class="col-lg-6 col-6">
             <!-- small box -->
             <div class="small-box bg-teal">
                 <div class="inner">
@@ -109,9 +79,9 @@
     {{-- /.row --}}
     <div class="d-none">
         <pre id="graphData">
-                Day Index, Pasien Isolasi, Pasien Sembuh, Pasien Berlanjut
+                Day Index, Pasien Isolasi, Pasien Sembuh
                 @foreach ($grafik as $v)
-                {{ "$v->tgl,$v->pasien_isolasi,$v->pasien_sembuh,$v->pasien_berlanjut" }}
+                {{ "$v->tgl,$v->pasien_isolasi,$v->pasien_sembuh" }}
                 @endforeach
         </pre>
     </div>
@@ -164,10 +134,7 @@
                     csv: document.getElementById('graphData').innerHTML
                 },
                 title: {
-                    text: 'Teks Disini'
-                },
-                subtitle: {
-                    text: 'Subtitle Disini'
+                    text: 'Grafik Pasien'
                 },
                 xAxis: {
                     tickInterval: 24 * 3600 * 1000, //one day
@@ -218,8 +185,6 @@
                     name: 'Pasien Isolasi'
                 }, {
                     name: 'Pasien Sembuh'
-                }, {
-                    name: 'Pasien Berlanjut'
                 }]
             });
         });

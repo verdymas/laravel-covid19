@@ -63,8 +63,8 @@ class warga extends Model
                 $j->on('he.code_help', DB::raw("COALESCE(h.stat_skt, 0)"))
                     ->where('he.param_help', 'ST_SKT');
             })
-            ->select($select)
-            ->groupBy('w.nik_wrg');
+            ->select($select);
+            // ->groupBy('w.nik_wrg');
 
         if ($raw) {
             return $sql->where($filter);

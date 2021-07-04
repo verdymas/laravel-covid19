@@ -17,30 +17,26 @@
                             <tr>
                                 <td>
                                     <b>No. Kartu Keluarga</b><br>
-                                    <span class="d-block"><span
-                                            class="mr-2 font-weight-bold">|</span>{{ $data->no_kk }}</span>
+                                    <span class="d-block"><span class="mr-2 font-weight-bold">|</span>{{ $data->no_kk }}</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <b>Nama</b><br>
-                                    <span class="d-block"><span
-                                            class="mr-2 font-weight-bold">|</span>{{ $data->nm_wrg }}</span>
+                                    <span class="d-block"><span class="mr-2 font-weight-bold">|</span>{{ $data->nm_wrg }}</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <b>Tempat, Tanggal Lahir</b><br>
-                                    <span class="d-block"><span
-                                            class="mr-2 font-weight-bold">|</span>{{ $data->tmplhr_wrg }},
+                                    <span class="d-block"><span class="mr-2 font-weight-bold">|</span>{{ $data->tmplhr_wrg }},
                                         {{ date('d-m-Y', strtotime($data->tgllhr_wrg)) }}</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <b>Jenis Kelamin</b><br>
-                                    <span class="d-block"><span
-                                            class="mr-2 font-weight-bold">|</span>{{ $data->jk_wrg == 1 ? 'Pria' : 'Wanita' }}</span>
+                                    <span class="d-block"><span class="mr-2 font-weight-bold">|</span>{{ $data->jk_wrg == 1 ? 'Pria' : 'Wanita' }}</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -102,8 +98,7 @@
                                             Jumlah
                                         </td>
                                         <td class="text-right"><b>x{{ $kk_skt->interval }}</b></td>
-                                        <input value="{{ $kk_skt->interval }}" type="hidden" name="hri" required
-                                            readonly>
+                                        <input value="{{ $kk_skt->interval }}" type="hidden" name="hri" required readonly>
                                     </tr>
                                     <tr>
                                         <td>
@@ -112,8 +107,7 @@
                                         </td>
                                         <td class="text-right"><b>Rp.
                                                 {{ number_format($kk_skt->jml_ban * $kk_skt->interval) }}</b></td>
-                                        <input value="{{ $kk_skt->jml_ban * $kk_skt->interval }}" type="hidden"
-                                            name="total" required readonly>
+                                        <input value="{{ $kk_skt->jml_ban * $kk_skt->interval }}" type="hidden" name="total" required readonly>
                                     </tr>
                                 @else
                                     <tr>
@@ -122,9 +116,7 @@
                                             Per Hari
                                         </td>
                                         <td class="w-25">
-                                            <input x-ref="jml_" x-model.number="jml" @focus="$refs.jml_.select()"
-                                                @keyup="tot = jml*hri;" type="number" name="jml"
-                                                class="form-control form-control-sm text-right" required>
+                                            <input x-ref="jml_" x-model.number="jml" @focus="$refs.jml_.select()" @keyup="tot = jml*hri;" type="number" name="jml" class="form-control form-control-sm text-right" required>
                                         </td>
                                     </tr>
                                     <tr>
@@ -184,8 +176,7 @@
                                     <tr>
                                         <td>Option</td>
                                         <td>
-                                            <select name="st_skt" id="st_skt" class="form-control form-control-sm"
-                                                x-model="st_skt" required>
+                                            <select name="st_skt" id="st_skt" class="form-control form-control-sm" x-model="st_skt" required>
                                                 <option value="">-- pilih satu --</option>
                                                 @foreach ($st_skt as $v)
                                                     <option value="{{ $v->code_help }}">{{ $v->val_help }}</option>
@@ -196,10 +187,16 @@
                                     <template x-if="st_skt == 0 && st_skt != ''">
                                         <tr>
                                             <td colspan="2" class="text-right">
-                                                <button type="submit" @click="$refs.formSehat.submit()"
-                                                    class="btn btn-primary ml-2">Ubah</button>
-                                                <a href="{{ route('kesehatan.index') }}"
-                                                    class="btn btn-default ml-2">Batal</a>
+                                                <button type="submit" @click="$refs.formSehat.submit()" class="btn btn-primary ml-2">Ubah</button>
+                                                <a href="{{ route('kesehatan.index') }}" class="btn btn-default ml-2">Batal</a>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                    <template x-if="st_skt == 1 && st_skt != ''">
+                                        <tr>
+                                            <td colspan="2" class="text-right">
+                                                <button type="submit" @click="$refs.formSakit.submit()" class="btn btn-primary ml-2">Ubah</button>
+                                                <a href="{{ route('kesehatan.index') }}" class="btn btn-default ml-2">Batal</a>
                                             </td>
                                         </tr>
                                     </template>
@@ -253,8 +250,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <select name="st_skt" id="st_skt" class="form-control form-control-sm"
-                                                x-model="st_skt" required>
+                                            <select name="st_skt" id="st_skt" class="form-control form-control-sm" x-model="st_skt" required>
                                                 <option value="">-- pilih satu --</option>
                                                 <option value="0">Sehat</option>
                                             </select>
@@ -316,8 +312,7 @@
                                             Jumlah (<span class="font-italic">pre-calculate</span>)
                                         </td>
                                         <td class="text-right"><b>x{{ $kk_skt->interval }}</b></td>
-                                        <input value="{{ $kk_skt->interval }}" type="hidden" name="hri" required
-                                            readonly>
+                                        <input value="{{ $kk_skt->interval }}" type="hidden" name="hri" required readonly>
                                     </tr>
                                     <tr>
                                         <td>
@@ -326,8 +321,7 @@
                                         </td>
                                         <td class="text-right"><b>Rp.
                                                 {{ number_format($kk_skt->jml_ban * $kk_skt->interval) }}</b></td>
-                                        <input value="{{ $kk_skt->jml_ban * $kk_skt->interval }}" type="hidden"
-                                            name="total" required readonly>
+                                        <input value="{{ $kk_skt->jml_ban * $kk_skt->interval }}" type="hidden" name="total" required readonly>
                                     </tr>
                                 @else
                                     <tr>
@@ -336,9 +330,7 @@
                                             Per Hari
                                         </td>
                                         <td class="w-25">
-                                            <input x-ref="jml_" x-model.number="jml" @focus="$refs.jml_.select()"
-                                                @keyup="tot = jml*hri;" type="number" name="jml"
-                                                class="form-control form-control-sm text-right" required>
+                                            <input x-ref="jml_" x-model.number="jml" @focus="$refs.jml_.select()" @keyup="tot = jml*hri;" type="number" name="jml" class="form-control form-control-sm text-right" required>
                                         </td>
                                     </tr>
                                     <tr>
@@ -362,15 +354,22 @@
                                 @endif
                                 <tr>
                                     <td colspan="2" class="text-right">
-                                        <button type="submit" @click="$refs.formBerlanjut.submit()"
-                                            class="btn btn-primary">Ubah</button>
+                                        <button type="submit" @click="$refs.formBerlanjut.submit()" class="btn btn-primary">Ubah</button>
                                         <a href="{{ route('kesehatan.index') }}" class="btn btn-default ml-2">Batal</a>
                                     </td>
                                 </tr>
                             </table>
                         </template>
                     </form>
-                    @if ($data->stat_skt == 1)
+                    @if ($data->stat_skt == 1 && $his->tgl_sls < date('Y-m-d'))
+                        <form method="post" x-ref="formSakit" action="{{ route('kesehatan.update', $data->nik_wrg) }}">
+                            @csrf
+                            @method('patch')
+                            <input type="hidden" name="st_skt" value="1">
+                            <input type="hidden" name="act" value="pasiensakit">
+                        </form>
+                    @endif
+                    @if ($data->stat_skt == 1 && !($his->tgl_sls < date('Y-m-d')))
                         <form method="post" x-ref="formSehat" action="{{ route('kesehatan.update', $data->nik_wrg) }}">
                             <template x-if="st_skt == 0">
                                 <table class="table table-hover table-striped table-bordered">
@@ -444,10 +443,8 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2" class="text-right">
-                                            <button type="submit" @click="$refs.formSehat.submit()"
-                                                class="btn btn-primary">Ubah</button>
-                                            <a href="{{ route('kesehatan.index') }}"
-                                                class="btn btn-default ml-2">Batal</a>
+                                            <button type="submit" @click="$refs.formSehat.submit()" class="btn btn-primary">Ubah</button>
+                                            <a href="{{ route('kesehatan.index') }}" class="btn btn-default ml-2">Batal</a>
                                         </td>
                                     </tr>
                                 </table>

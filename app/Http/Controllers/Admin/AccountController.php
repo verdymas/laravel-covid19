@@ -103,7 +103,9 @@ class AccountController extends Controller
 
         $adm->username = $request->username;
         $adm->nm_adm = $request->nm_adm;
-        $adm->password = Hash::make($request->password);
+        if ($request->password) {
+            $adm->password = Hash::make($request->password);
+        }
         $adm->img_adm = $img_adm;
 
         if ($adm->save()) {

@@ -35,7 +35,7 @@ class KesehatanController extends Controller
 
         $where['id_adm'] = auth()->guard('satgas')->user()->id_adm;
 
-        $data = $this->warga->fetch_data(true, 1, $select, $where)->get();
+        $data = $this->warga->fetch_data(true, 1, $select, $where)->groupBy('w.nik_wrg')->get();
 
         return view('satgas.sehat.index', compact('data'));
     }
@@ -83,10 +83,10 @@ class KesehatanController extends Controller
     public function edit($id)
     {
         $where = [
-            'w.nik_wrg' => $id,
+            'w.nik_wrg' => $id,            
         ];
 
-        $dt['data'] = $this->warga->fetch_data(true, 1, null, $where)->first();
+        $dt['data'] = $this->warga->fetch_data(true, 1, null, $where)->orderBy('h.id_his', 'desc')->first();
 
         if ($dt['data']->stat_skt == 1) {
             $dt['his'] = historiskt::find($dt['data']->id_his);
@@ -118,7 +118,9 @@ class KesehatanController extends Controller
             $dt['kk_skt'] = false;
         }
 
-        $dt['st_skt'] = helper::where('param_help', 'ST_SKT')->whereNotIn('code_help', [1])->get();
+        $dt['st_skt'] = helper::where('param_help', 'ST_SKT')->whereNotIn('code_help', [2])->get();
+
+        // dd($dt);
 
         return view('satgas.sehat.edit', $dt);
     }
@@ -162,7 +164,7 @@ class KesehatanController extends Controller
             });
 
         } elseif ($request->act == 'sehat') {
-            $h = historiskt::where(['nik_wrg' => $w->nik_wrg, 'st_skt' => 1])
+            $h = historiskt::where(['nik_wrg' => $w->nik_wrg, 'stat_skt' => 1])
                 ->update([
                     'tgl_smb' => date('Y-m-d'),
                     'st_skt' => $request->st_skt,
@@ -172,7 +174,7 @@ class KesehatanController extends Controller
             $msg = ['success' => 'Data berhasil disimpan'];
         } elseif ($request->act == 'berlanjut') {
             DB::transaction(function () use ($request, $w) {
-                $h = historiskt::where(['nik_wrg' => $w->nik_wrg, 'st_skt' => 1])
+                $h = historiskt::where(['nik_wrg' => $w->nik_wrg, 'stat_skt' => 1])
                     ->update([
                         'st_skt' => $request->st_skt,
                         'stat_skt' => 0,
@@ -203,7 +205,7 @@ class KesehatanController extends Controller
             $msg = ['success' => 'Data berhasil disimpan'];
         } elseif ($request->act == 'pasiensehat') {
             DB::transaction(function () use ($request, $w) {
-                $his = historiskt::where(['nik_wrg' => $w->nik_wrg, 'st_skt' => 1]);
+                $his = historiskt::where(['nik_wrg' => $w->nik_wrg, 'stat_skt' => 1]);
 
                 $ban = bantuan::where('id_his', $his->first()->id_his)->update([
                     'hri_ban' => $request->hri_ban,
@@ -212,6 +214,19 @@ class KesehatanController extends Controller
 
                 $his->update([
                     'tgl_sls' => $request->tgl_sls,
+                    'tgl_smb' => date('Y-m-d'),
+                    'st_skt' => $request->st_skt,
+                    'stat_skt' => 0,
+                ]);
+
+            });
+
+            $msg = ['success' => 'Data berhasil disimpan'];
+        } elseif ($request->act == 'pasiensakit') {
+            DB::transaction(function () use ($request, $w) {
+                $his = historiskt::where(['nik_wrg' => $w->nik_wrg, 'stat_skt' => 1]);
+
+                $his->update([
                     'tgl_smb' => date('Y-m-d'),
                     'st_skt' => $request->st_skt,
                     'stat_skt' => 0,

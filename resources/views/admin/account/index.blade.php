@@ -57,20 +57,14 @@
                                 <tr x-show="stateEdit">
                                     <td>
                                         <b>Password</b><br>
-                                        <input type="password" class="form-control form-control-sm" name="password"
-                                            required>
+                                        <input type="password" class="form-control form-control-sm" name="password"  placeholder="biarkan kosong, Jika tidak diganti">
                                     </td>
                                 </tr>
                                 <tr x-show="stateEdit">
                                     <td>
                                         <b>Image</b><br>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="img_adm" name="img_adm"
-                                                    required>
-                                                <label class="custom-file-label" for="img_adm">Choose
-                                                    file</label>
-                                            </div>
+                                        <div class="form-group">
+                                            <input type="file" class="form-control" id="img_adm" name="img_adm" required>
                                         </div>
                                     </td>
                                 </tr>
