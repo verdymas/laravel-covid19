@@ -29,13 +29,35 @@ class KesehatanController extends Controller
      */
     public function index()
     {
-        $select = [
-            'k.no_kk', 'w.nik_wrg', 'w.nm_wrg', 'hp.val_help AS jk', 'he.val_help AS st_skt', DB::raw("TIMESTAMPDIFF(YEAR, tgllhr_wrg, CURDATE()) AS umur_wrg"),
-        ];
+        // $select = [
+        //     'k.no_kk', 'w.nik_wrg', 
+        //     'w.nm_wrg', 'hp.val_help AS jk', 
+        //     'he.val_help AS st_skt', 
+        //     DB::raw("TIMESTAMPDIFF(YEAR, tgllhr_wrg, CURDATE()) AS umur_wrg"),
+        // ];
 
-        $where['id_adm'] = auth()->guard('satgas')->user()->id_adm;
+        // $where['id_adm'] = auth()->guard('satgas')->user()->id_adm;
 
-        $data = $this->warga->fetch_data(true, 1, $select, $where)->groupBy('w.nik_wrg')->get();
+        // $data = $this->warga->fetch_data(true, 1, $select, $where)->groupBy('w.nik_wrg')->toSql();
+
+        $id_adm = auth()->guard('satgas')->user()->id_adm;
+
+        $sql = "
+        SELECT t.*
+        FROM
+        (SELECT `k`.`no_kk`, `w`.`nik_wrg`, `w`.`nm_wrg`, TIMESTAMPDIFF(YEAR, tgllhr_wrg, CURDATE()) AS umur_wrg, `hp`.`val_help` AS `jk`, `he`.`val_help` AS `st_skt`
+        FROM `warga` AS `w` 
+        INNER JOIN `kk` AS `k` ON `k`.`id_kk` = `w`.`id_kk` 
+        LEFT JOIN `historiskt` AS `h` ON `w`.`nik_wrg` = `h`.`nik_wrg` 
+        LEFT JOIN `helper` AS `hp` ON `hp`.`code_help` = `w`.`jk_wrg` AND `hp`.`param_help` = 'JK'
+        LEFT JOIN `helper` AS `he` ON `he`.`code_help` = COALESCE(h.stat_skt, 0) AND `he`.`param_help` = 'ST_SKT'
+        WHERE (`w`.`stat_wrg` = 1 AND `id_adm` = $id_adm) 
+        ORDER BY h.tgl_skt DESC
+        LIMIT 18446744073709551615) AS t
+        GROUP BY `t`.`nik_wrg`
+        ";
+
+        $data = DB::select(DB::raw($sql));
 
         return view('satgas.sehat.index', compact('data'));
     }
