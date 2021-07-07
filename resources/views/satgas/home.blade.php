@@ -45,31 +45,16 @@
     </div>
     <!-- /.row -->
     <div class="row">
-        <div class="col-lg-6 col-6">
+        <div class="col-lg-12 col-12">
             <!-- small box -->
-            <div class="small-box bg-primary">
+            <div class="small-box bg-warning">
                 <div class="inner">
-                    <h3>{{ count($isolasibln) }}</h3>
+                    <h3>{{ count($sakit) }}</h3>
 
-                    <p>Pasien Masa Isolasi (Bulan Ini)</p>
+                    <p>Pasien Sakit</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-book"></i>
-                </div>
-                {{-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
-            </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-6 col-6">
-            <!-- small box -->
-            <div class="small-box bg-teal">
-                <div class="inner">
-                    <h3>{{ count($sehatbln) }}</h3>
-
-                    <p>Pasien Sembuh (Bulan Ini)</p>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-book-medical"></i>
                 </div>
                 {{-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
             </div>
@@ -79,9 +64,9 @@
     {{-- /.row --}}
     <div class="d-none">
         <pre id="graphData">
-                Day Index, Pasien Isolasi, Pasien Sembuh
+                Day Index, Pasien Isolasi, Pasien Sembuh, Pasien Sakit
                 @foreach ($grafik as $v)
-                {{ "$v->tgl,$v->pasien_isolasi,$v->pasien_sembuh" }}
+                {{ "$v->tgl,$v->pasien_isolasi,$v->pasien_sembuh,$v->pasien_sakit" }}
                 @endforeach
         </pre>
     </div>
@@ -185,6 +170,8 @@
                     name: 'Pasien Isolasi'
                 }, {
                     name: 'Pasien Sembuh'
+                }, {
+                    name: 'Pasien Sakit'
                 }]
             });
         });

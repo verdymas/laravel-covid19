@@ -63,12 +63,12 @@
     </div>
     {{-- /.row --}}
     <div class="row mb-4">
-        <div class="col-lg-6 col-sm-12">
+        <div class="col-lg-12 col-sm-12">
             <div class="card card-outline card-primary h-100">
                 <div class="card-header">
                     <h3 class="card-title font-weight-bold">
                         <i class="fas fa-user-injured mr-2"></i>
-                        Pasien Isolasi (Bulan Ini)
+                        Pasien Sakit
                     </h3>
                 </div>
                 <div class="card-body">
@@ -80,39 +80,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($isolasibln as $item)
+                            @foreach ($sakit as $item)
                                 <tr>
                                     <td>{{ $item->nm_wrg }}</td>
                                     <td>{{ $item->tgl_skt }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        {{-- /.col --}}
-        <div class="col-lg-6 col-sm-12">
-            <div class="card card-outline card-primary h-100">
-                <div class="card-header">
-                    <h3 class="card-title font-weight-bold">
-                        <i class="fas fa-user-plus mr-2"></i>
-                        Pasien Sembuh (Bulan Ini)
-                    </h3>
-                </div>
-                <div class="card-body">
-                    <table class="table table-striped table-bordered table-hover mb-3">
-                        <thead>
-                            <tr>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Tgl. Sembuh</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($sehatbln as $item)
-                                <tr>
-                                    <td>{{ $item->nm_wrg }}</td>
-                                    <td>{{ $item->tgl_smb }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
