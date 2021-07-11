@@ -154,9 +154,11 @@ class KkController extends Controller
             'almt_kk' => 'required',
         ]);
 
+        $stat_kk = $act == 'store' ? 1 : $request->stat_kk;
+
         $d->no_kk = $request->no_kk;
         $d->almt_kk = $request->almt_kk;
-        $d->stat_kk = 1;
+        $d->stat_kk = $stat_kk;
         $d->id_adm = $request->id_adm;
         if ($d->save()) {
             $act == 'store'
